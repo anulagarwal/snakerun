@@ -33,6 +33,8 @@ public class PlayerMovementController : MonoBehaviour
     {
         movementJS = UIPackSingleton.Instance.GetGameplayCanvasHandler.GetMovementJS;
         BeadsInitialSetup();
+
+        EnablePlayerMovement(false);
     }
 
     private void Update()
@@ -64,13 +66,13 @@ public class PlayerMovementController : MonoBehaviour
     #endregion
 
     #region Public Core Functions
-    public void DisablePlayerMovement()
+    public void EnablePlayerMovement(bool value)
     {
         foreach (PlayerBeadFollower playerBeadFollower in playerBeadFollowers)
         {
-            playerBeadFollower.enabled = false;
+            playerBeadFollower.enabled = value;
         }
-        this.enabled = false;
+        this.enabled = value;
     }
 
     public void Jump()

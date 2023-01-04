@@ -9,7 +9,7 @@ public class PlayerTriggerEventsHandler : MonoBehaviour
     {
         if (other.gameObject.tag == "Finish")
         {
-            PlayerSingleton.Instance.GetPlayerMovementController.DisablePlayerMovement();
+            PlayerSingleton.Instance.GetPlayerMovementController.EnablePlayerMovement(false);
         }
         else if (other.gameObject.tag == "Jumper")
         {

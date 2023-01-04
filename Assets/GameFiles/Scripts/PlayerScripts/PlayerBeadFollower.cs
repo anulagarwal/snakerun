@@ -12,7 +12,7 @@ public class PlayerBeadFollower : MonoBehaviour
     #region MonoBehaviour Functions
     private void Update()
     {
-        transform.position = Vector3.Lerp(transform.position, TargetTransform.position, followSpeed * Time.deltaTime);
+        transform.position = Vector3.Slerp(transform.position, TargetTransform.position, followSpeed * Time.deltaTime);
     }
     #endregion
 
