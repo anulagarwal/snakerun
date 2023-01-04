@@ -15,6 +15,10 @@ public class PlayerTriggerEventsHandler : MonoBehaviour
         {
             PlayerSingleton.Instance.GetPlayerMovementController.Jump();
         }
+        else if (other.gameObject.tag == "Enemy")
+        {
+            other.gameObject.GetComponent<EnemyHandler>().PlayerCollisionRules(PlayerSingleton.Instance.GetPlayerBeadsManager.GetPlayerLevel);
+        }
     }
     #endregion
 }

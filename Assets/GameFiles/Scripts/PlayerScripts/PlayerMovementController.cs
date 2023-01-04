@@ -10,6 +10,7 @@ public class PlayerMovementController : MonoBehaviour
 
     [Header("Components Reference")]
     [SerializeField] private CharacterController characterController = null;
+    [SerializeField] private PlayerBeadsManager playerBeadsManager = null;
 
     [Header("Fake Gravity Attributes")]
     [SerializeField] private Transform groundChecker = null;
@@ -68,10 +69,11 @@ public class PlayerMovementController : MonoBehaviour
     #region Public Core Functions
     public void EnablePlayerMovement(bool value)
     {
-        foreach (PlayerBeadFollower playerBeadFollower in playerBeadFollowers)
-        {
-            playerBeadFollower.enabled = value;
-        }
+        //foreach (PlayerBeadFollower playerBeadFollower in playerBeadFollowers)
+        //{
+        //    playerBeadFollower.enabled = value;
+        //}
+        playerBeadsManager.EnablePlayerBeadsMovementMechanism(value);
         this.enabled = value;
     }
 

@@ -41,12 +41,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 414159800944734783}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ace9243285324cd4c9a25178d3cbe2ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   followSpeed: 20
+  beadTailtransform: {fileID: 414159801829874268}
 --- !u!1 &414159801829874269
 GameObject:
   m_ObjectHideFlags: 0
