@@ -9,7 +9,10 @@ public class PlayerTriggerEventsHandler : MonoBehaviour
     {
         if (other.gameObject.tag == "Finish")
         {
-            PlayerSingleton.Instance.GetPlayerMovementController.EnablePlayerMovement(false);
+            PlatformFinishlineHandler.Instance.PlayConfettiVFX();
+            PlayerSingleton.Instance.DisableMovement();
+
+            UIPackSingleton.Instance.SwitchUICanvas(UICanvas.GameOverCanvas);
         }
         else if (other.gameObject.tag == "Jumper")
         {
@@ -18,6 +21,18 @@ public class PlayerTriggerEventsHandler : MonoBehaviour
         else if (other.gameObject.tag == "Enemy")
         {
             other.gameObject.GetComponent<EnemyHandler>().PlayerCollisionRules(PlayerSingleton.Instance.GetPlayerBeadsManager.GetPlayerLevel);
+        }
+        else if (other.gameObject.tag == "Climber")
+        {
+            PlayerSingleton.Instance.GetPlayerMovementController.SwitchCrawlDirection(SnakeCrawlDirection.Up);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Climber")
+        {
+            PlayerSingleton.Instance.GetPlayerMovementController.SwitchCrawlDirection(SnakeCrawlDirection.Forward);
         }
     }
     #endregion

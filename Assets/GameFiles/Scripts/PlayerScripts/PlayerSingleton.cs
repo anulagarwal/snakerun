@@ -28,4 +28,11 @@ public class PlayerSingleton : MonoBehaviour
     
     public PlayerBeadsManager GetPlayerBeadsManager { get => playerBeadsManager; }
     #endregion
+
+    #region Public Core Functions
+    public void DisableMovement()
+    {
+        playerMovementController.EnablePlayerMovement(false);
+    }
+    #endregion
 }

@@ -32,7 +32,7 @@ public class PlayerBeadsManager : MonoBehaviour
         EnablePlayerBeadsMovementMechanism(false);
     }
 
-    private void LateUpdate()
+    private void Update()
     {
         if (playerBeadsMovementMechanism != null)
         {
@@ -50,7 +50,7 @@ public class PlayerBeadsManager : MonoBehaviour
     {
         for (int i = 0; i < playerBeadsTransforms.Count; i++)
         {
-            playerBeadsTransforms[i].position = Vector3.Slerp(playerBeadsTransforms[i].position, playerBeadsTransforms[i].GetComponent<PlayerBeadFollower>().TargetTransform.position, beadsFollowSpeed * Time.deltaTime);
+            playerBeadsTransforms[i].position = Vector3.SlerpUnclamped(playerBeadsTransforms[i].position, playerBeadsTransforms[i].GetComponent<PlayerBeadFollower>().TargetTransform.position, beadsFollowSpeed * Time.deltaTime);
         }
     }
     #endregion
@@ -94,6 +94,14 @@ public class PlayerBeadsManager : MonoBehaviour
         {
             playerBeadsTweener.TweenBeads(playerBeadsTransforms);
         }
+    }
+
+    //Remove Beads From Player Tail
+    public void RemoveBeadFromEnd()
+    {
+        Transform temp = playerBeadsTransforms[playerBeadsTransforms.Count - 1];
+        Destroy(temp.gameObject);
+        playerBeadsTransforms.RemoveAt(playerBeadsTransforms.Count - 1);
     }
     #endregion
 }

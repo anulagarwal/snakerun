@@ -22,6 +22,7 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private List<Transform> tailTransformReferences = new List<Transform>();
     [SerializeField] private List<PlayerBeadFollower> playerBeadFollowers = new List<PlayerBeadFollower>();
 
+    private bool isGravityActive = false;
     private bool isGrounded = false;
     private float gravity = -9.81f;
     private Vector3 velocity = Vector3.zero;
@@ -32,6 +33,7 @@ public class PlayerMovementController : MonoBehaviour
     #region MonoBehaviour Functions
     private void Start()
     {
+        SwitchCrawlDirection(SnakeCrawlDirection.Forward);
         movementJS = UIPackSingleton.Instance.GetGameplayCanvasHandler.GetMovementJS;
         BeadsInitialSetup();
 
@@ -40,18 +42,26 @@ public class PlayerMovementController : MonoBehaviour
 
     private void Update()
     {
-        isGrounded = Physics.CheckSphere(groundChecker.position, groundDistance, groundMask);
-        if (isGrounded && velocity.y < 0)
+        if (ActiveCrawlDirection == SnakeCrawlDirection.Forward)
         {
-            velocity.y = -2f;
+            movementDirection = new Vector3(movementJS.Horizontal, 0, 1).normalized;
+        }
+        else if (ActiveCrawlDirection == SnakeCrawlDirection.Up)
+        {
+            movementDirection = new Vector3(movementJS.Horizontal, 1, 0).normalized;
         }
 
-        movementDirection = new Vector3(movementJS.Horizontal, 0, 1).normalized;
         characterController.Move(movementDirection * Time.deltaTime * moveSpeed);
 
-        velocity.y += gravity * Time.deltaTime;
-        characterController.Move(velocity * Time.deltaTime);
+        if (isGravityActive)
+        {
+            FakeGravity();
+        }
     }
+    #endregion
+    //
+    #region Getter And Setter
+    public SnakeCrawlDirection ActiveCrawlDirection { get; set; }
     #endregion
 
     #region Private Core Functions
@@ -64,15 +74,22 @@ public class PlayerMovementController : MonoBehaviour
             tailTransformIndex++;
         }
     }
+
+    private void FakeGravity()
+    {
+        isGrounded = Physics.CheckSphere(groundChecker.position, groundDistance, groundMask);
+        if (isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2f;
+        }
+        velocity.y += gravity * Time.deltaTime;
+        characterController.Move(velocity * Time.deltaTime);
+    }
     #endregion
 
     #region Public Core Functions
     public void EnablePlayerMovement(bool value)
     {
-        //foreach (PlayerBeadFollower playerBeadFollower in playerBeadFollowers)
-        //{
-        //    playerBeadFollower.enabled = value;
-        //}
         playerBeadsManager.EnablePlayerBeadsMovementMechanism(value);
         this.enabled = value;
     }
@@ -81,6 +98,21 @@ public class PlayerMovementController : MonoBehaviour
     {
         print("Working");
         velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+    }
+
+    public void SwitchCrawlDirection(SnakeCrawlDirection direction)
+    {
+        switch (direction)
+        {
+            case SnakeCrawlDirection.Up:
+                ActiveCrawlDirection = direction;
+                isGravityActive = false;
+                break;
+            case SnakeCrawlDirection.Forward:
+                ActiveCrawlDirection = direction;
+                isGravityActive = true;
+                break;
+        }
     }
     #endregion
 }

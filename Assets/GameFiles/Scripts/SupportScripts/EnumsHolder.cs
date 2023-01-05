@@ -4,3 +4,9 @@ public enum UICanvas
     GameplayCanvas,
     GameOverCanvas
 };
+
+public enum SnakeCrawlDirection
+{
+    Up,
+    Forward
+};
