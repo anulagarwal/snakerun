@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 414159800944734782}
   - component: {fileID: 414159800944734753}
+  - component: {fileID: 5367866718491425231}
   m_Layer: 0
   m_Name: PlayerBead
   m_TagString: Untagged
@@ -46,8 +47,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace9243285324cd4c9a25178d3cbe2ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  followSpeed: 20
   beadTailtransform: {fileID: 414159801829874268}
+--- !u!114 &5367866718491425231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 414159800944734783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d6f1865dbd1bec43927600f30aa19f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transitionSpeed: 4
+  meshRenderer: {fileID: 414159802260547138}
 --- !u!1 &414159801829874269
 GameObject:
   m_ObjectHideFlags: 0

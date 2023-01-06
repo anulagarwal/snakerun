@@ -13,10 +13,14 @@ public class PlayerBeadsManager : MonoBehaviour
     [Header("Player Beads Attributes")]
     [SerializeField] private float beadsFollowSpeed = 0f;
     [SerializeField] private List<Transform> playerBeadsTransforms = new List<Transform>();
+    [SerializeField] private List<PlayerBeadColorUpdater> playerBeadColorUpdaters = new List<PlayerBeadColorUpdater>();
     [Range(0, 1)][SerializeField] private float beadPositionOffset = 0f;
     [SerializeField] private Transform playerParentTransform = null;
     [SerializeField] private PlayerBeadFollower lastPlayerBeadFollower = null;
     [SerializeField] private PlayerBeadsTweener playerBeadsTweener = null;
+    [SerializeField] private GameObject playerBeadPrefab = null;
+
+    private BeadColors newBeadColors = new BeadColors();
     #endregion
 
     #region Delegates
@@ -85,15 +89,29 @@ public class PlayerBeadsManager : MonoBehaviour
             playerBeadFollower.TargetTransform = lastPlayerBeadFollower.GetBeadTailTransform;
             lastPlayerBeadFollower = playerBeadFollower;
             playerBeadsTransforms.Add(newBeadTransform);
+            playerBeadColorUpdaters.Add(newBeadTransform.GetComponent<PlayerBeadColorUpdater>());
         }
+    }
+
+    public void UpdateColorOfFrontBeads(int count, Color32 litColor, Color32 shadedColor)
+    {
+        newBeadColors.litColor = litColor;
+        newBeadColors.shadedColor = shadedColor;
+
+        //Testing
+        int index = 0;
+        while (count > index)
+        {
+            playerBeadColorUpdaters[index].UpdateColor(newBeadColors);
+            index++;
+            AddBeadToPlayerTail(Instantiate(playerBeadPrefab, Vector3.zero, Quaternion.identity).transform);
+        }
+        TweenAllBeads();
     }
 
     public void TweenAllBeads()
     {
-        foreach (Transform t in playerBeadsTransforms)
-        {
-            playerBeadsTweener.TweenBeads(playerBeadsTransforms);
-        }
+        playerBeadsTweener.TweenBeads(playerBeadsTransforms);
     }
 
     //Remove Beads From Player Tail
@@ -102,6 +120,9 @@ public class PlayerBeadsManager : MonoBehaviour
         Transform temp = playerBeadsTransforms[playerBeadsTransforms.Count - 1];
         Destroy(temp.gameObject);
         playerBeadsTransforms.RemoveAt(playerBeadsTransforms.Count - 1);
+        playerLevel--;
+        lastPlayerBeadFollower = playerBeadsTransforms[playerBeadsTransforms.Count - 1].GetComponent<PlayerBeadFollower>();
+        UpdatePlayerLevelIndicatorTMP();
     }
     #endregion
 }

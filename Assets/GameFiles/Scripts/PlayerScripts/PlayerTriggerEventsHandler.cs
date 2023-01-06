@@ -26,6 +26,15 @@ public class PlayerTriggerEventsHandler : MonoBehaviour
         {
             PlayerSingleton.Instance.GetPlayerMovementController.SwitchCrawlDirection(SnakeCrawlDirection.Up);
         }
+        else if (other.gameObject.tag == "Obstacle")
+        {
+            other.gameObject.GetComponent<ObstacleHandler>().CheckForCollisionRules(PlayerSingleton.Instance.GetPlayerBeadsManager.GetPlayerLevel);
+        }
+        else if (other.gameObject.tag == "ColorBead")
+        {
+            other.gameObject.GetComponent<ColorBeadHandler>().AddColorBeadToPlayerTrail();
+            Destroy(other.gameObject);
+        }
     }
 
     private void OnTriggerExit(Collider other)

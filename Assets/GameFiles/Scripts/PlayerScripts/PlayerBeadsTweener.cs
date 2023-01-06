@@ -9,6 +9,9 @@ public class PlayerBeadsTweener : MonoBehaviour
     [SerializeField] private float tweenDelay = 0f;
     [SerializeField] private float tweenTime = 0f;
     [SerializeField] private float scaleUpMultiplier = 0f;
+
+    private List<Transform> tweenableObjects = new List<Transform>();
+    private int tweenObjActiveIndex = 0;
     #endregion
 
     #region MonoBehaviour Functions
@@ -27,21 +30,26 @@ public class PlayerBeadsTweener : MonoBehaviour
     #region Public core functions
     public void TweenBeads(List<Transform> transforms)
     {
-        StartCoroutine(TweenOnDelay(transforms));
+        CancelInvoke();
+        tweenableObjects = transforms;
+        tweenObjActiveIndex = 0;
+
+        InvokeRepeating("TweenOnDelay", 0.01f, tweenDelay);
     }
     #endregion
 
-    #region Coroutines
-    private IEnumerator TweenOnDelay(List<Transform> transforms)
+    #region Invoke Functions
+    private void TweenOnDelay()
     {
-        foreach (Transform t in transforms)
+        Tween(tweenableObjects[tweenObjActiveIndex]);
+
+        tweenObjActiveIndex++;
+
+        if (tweenObjActiveIndex >= tweenableObjects.Count)
         {
-            Tween(t);
-
-            yield return new WaitForSeconds(tweenDelay);
+            tweenObjActiveIndex = 0;
+            CancelInvoke();
         }
-
-        StopAllCoroutines();
     }
     #endregion
 }
