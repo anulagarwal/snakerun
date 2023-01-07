@@ -62,9 +62,15 @@ MonoBehaviour:
   spawnOffset: 0.25
   beadSpawnAmount: 10
   enemyLevelTMP: {fileID: 133476358305779515}
-  beadPrefab: {fileID: 414159800944734783, guid: 38759ec9ed614d74493465d276203ad7,
+  beadPrefab: {fileID: 414159800944734783, guid: b68ad1ce0b43f114281b30e148dcb39c,
     type: 3}
   beads: []
+  litColor:
+    serializedVersion: 2
+    rgba: 4294933711
+  shadedColor:
+    serializedVersion: 2
+    rgba: 4285150038
 --- !u!1 &133476358045931652
 GameObject:
   m_ObjectHideFlags: 0

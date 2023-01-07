@@ -65,7 +65,7 @@ public class PlayerBeadsManager : MonoBehaviour
             playerBeadColorData.Add(new BeadColors());
             playerBeadColorData[index].litColor = litColor;
             playerBeadColorData[index].shadedColor = shadedColor;
-            t.UpdateColor(playerBeadColorData[index]);
+            t.UpdateColor(playerBeadColorData[index].litColor, playerBeadColorData[index].shadedColor);
             index++;
         }
     }
@@ -75,6 +75,22 @@ public class PlayerBeadsManager : MonoBehaviour
         for (int i = 0; i < playerBeadsTransforms.Count; i++)
         {
             playerBeadsTransforms[i].position = Vector3.SlerpUnclamped(playerBeadsTransforms[i].position, playerBeadsTransforms[i].GetComponent<PlayerBeadFollower>().TargetTransform.position, beadsFollowSpeed * Time.deltaTime);
+        }
+    }
+
+    private void AddBeadToPlayerTail(Transform beadTransform)
+    {
+        playerLevel++;
+        UpdatePlayerLevelIndicatorTMP();
+        beadTransform.parent = playerParentTransform;
+        beadTransform.position = new Vector3(lastPlayerBeadFollower.transform.position.x, 0, lastPlayerBeadFollower.transform.position.z + beadPositionOffset);
+
+        if (beadTransform.TryGetComponent<PlayerBeadFollower>(out PlayerBeadFollower playerBeadFollower))
+        {
+            playerBeadFollower.TargetTransform = lastPlayerBeadFollower.GetBeadTailTransform;
+            lastPlayerBeadFollower = playerBeadFollower;
+            playerBeadsTransforms.Add(beadTransform);
+            playerBeadColorUpdaters.Add(beadTransform.GetComponent<PlayerBeadColorUpdater>());
         }
     }
     #endregion
@@ -97,13 +113,13 @@ public class PlayerBeadsManager : MonoBehaviour
         playerLevelIndicatorTMP.SetText(playerLevel.ToString());
     }
 
-    public void AddBeadToPlayerTail(Transform newBeadTransform)
+    public void AddBeadToPlayerTailFromEnemies(Transform newBeadTransform)
     {
         playerLevel++;
         UpdatePlayerLevelIndicatorTMP();
         newBeadTransform.parent = playerParentTransform;
         newBeadTransform.position = new Vector3(lastPlayerBeadFollower.transform.position.x, 0, lastPlayerBeadFollower.transform.position.z + beadPositionOffset);
-        
+
         if (newBeadTransform.TryGetComponent<PlayerBeadFollower>(out PlayerBeadFollower playerBeadFollower))
         {
             playerBeadFollower.TargetTransform = lastPlayerBeadFollower.GetBeadTailTransform;
@@ -111,21 +127,14 @@ public class PlayerBeadsManager : MonoBehaviour
             playerBeadsTransforms.Add(newBeadTransform);
             playerBeadColorUpdaters.Add(newBeadTransform.GetComponent<PlayerBeadColorUpdater>());
         }
+
+        playerBeadColorData.Insert(0, newBeadTransform.GetComponent<EnemyBeadColorUpdater>().StartColors);
     }
 
-    public void UpdateColorOfFrontBeads(int count, Color32 litColor, Color32 shadedColor)
+    public void SpawnAndUpdateColorOfFrontBeads(int count, Color32 litColor, Color32 shadedColor)
     {
         newBeadColors.litColor = litColor;
         newBeadColors.shadedColor = shadedColor;
-
-        //Testing
-        //int index = 0;
-        //while (count > index)
-        //{
-        //    playerBeadColorUpdaters[index].UpdateColor(newBeadColors);
-        //    index++;
-        //    AddBeadToPlayerTail(Instantiate(playerBeadPrefab, Vector3.zero, Quaternion.identity).transform);
-        //}
 
         while (count > 0)
         {
@@ -133,10 +142,13 @@ public class PlayerBeadsManager : MonoBehaviour
             count--;
             playerBeadColorData.Insert(0, newBeadColors);
         }
+    }
 
+    public void UpdateAllBeadsColor()
+    {
         for (int i = 0; i < playerBeadColorData.Count; i++)
         {
-            playerBeadColorUpdaters[i].UpdateColor(playerBeadColorData[i]);
+            playerBeadColorUpdaters[i].UpdateColor(playerBeadColorData[i].litColor, playerBeadColorData[i].shadedColor);
         }
 
         TweenAllBeads();

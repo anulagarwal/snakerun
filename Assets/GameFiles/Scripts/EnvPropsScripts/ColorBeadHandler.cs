@@ -38,7 +38,9 @@ public class ColorBeadHandler : MonoBehaviour
     #region Public Core functions
     public void AddColorBeadToPlayerTrail()
     {
-        PlayerSingleton.Instance.GetPlayerBeadsManager.UpdateColorOfFrontBeads(strength, litColor, shadedColor);
+        PlayerSingleton.Instance.GetPlayerBeadsManager.SpawnAndUpdateColorOfFrontBeads(strength, litColor, shadedColor);
+        PlayerSingleton.Instance.GetPlayerBeadsManager.UpdateAllBeadsColor();
+        //PlayerSingleton.Instance.GetPlayerBeadsManager.TweenAllBeads();
     }
     #endregion
 }
