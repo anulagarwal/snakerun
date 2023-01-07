@@ -24,6 +24,9 @@ public class ColorBeadHandler : MonoBehaviour
     }
     #endregion
 
+    #region Getter And Setter
+    #endregion
+
     #region Private Core functions
     private void SetupColor()
     {

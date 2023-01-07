@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Drawing;
 
 public class PlayerBeadsManager : MonoBehaviour
 {
@@ -20,7 +21,12 @@ public class PlayerBeadsManager : MonoBehaviour
     [SerializeField] private PlayerBeadsTweener playerBeadsTweener = null;
     [SerializeField] private GameObject playerBeadPrefab = null;
 
+    [Header("Beads Color Attributes")]
+    [SerializeField] private Color32 litColor;
+    [SerializeField] private Color32 shadedColor;
+
     private BeadColors newBeadColors = new BeadColors();
+    private List<BeadColors> playerBeadColorData = new List<BeadColors>();
     #endregion
 
     #region Delegates
@@ -34,6 +40,7 @@ public class PlayerBeadsManager : MonoBehaviour
     {
         UpdatePlayerLevelIndicatorTMP();
         EnablePlayerBeadsMovementMechanism(false);
+        BeadsInitialColorSetup();
     }
 
     private void Update()
@@ -50,6 +57,19 @@ public class PlayerBeadsManager : MonoBehaviour
     #endregion
 
     #region Private Core Functions
+    private void BeadsInitialColorSetup()
+    {
+        int index = 0;
+        foreach (PlayerBeadColorUpdater t in playerBeadColorUpdaters)
+        {
+            playerBeadColorData.Add(new BeadColors());
+            playerBeadColorData[index].litColor = litColor;
+            playerBeadColorData[index].shadedColor = shadedColor;
+            t.UpdateColor(playerBeadColorData[index]);
+            index++;
+        }
+    }
+
     private void PlayerBeadsMovementCore()
     {
         for (int i = 0; i < playerBeadsTransforms.Count; i++)
@@ -99,13 +119,26 @@ public class PlayerBeadsManager : MonoBehaviour
         newBeadColors.shadedColor = shadedColor;
 
         //Testing
-        int index = 0;
-        while (count > index)
+        //int index = 0;
+        //while (count > index)
+        //{
+        //    playerBeadColorUpdaters[index].UpdateColor(newBeadColors);
+        //    index++;
+        //    AddBeadToPlayerTail(Instantiate(playerBeadPrefab, Vector3.zero, Quaternion.identity).transform);
+        //}
+
+        while (count > 0)
         {
-            playerBeadColorUpdaters[index].UpdateColor(newBeadColors);
-            index++;
             AddBeadToPlayerTail(Instantiate(playerBeadPrefab, Vector3.zero, Quaternion.identity).transform);
+            count--;
+            playerBeadColorData.Insert(0, newBeadColors);
         }
+
+        for (int i = 0; i < playerBeadColorData.Count; i++)
+        {
+            playerBeadColorUpdaters[i].UpdateColor(playerBeadColorData[i]);
+        }
+
         TweenAllBeads();
     }
 

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public struct BeadColors
+public class BeadColors
 {
     #region Properties
     public Color32 litColor;

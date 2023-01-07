@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class PlayerBeadsTweener : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class PlayerBeadsTweener : MonoBehaviour
 
     private List<Transform> tweenableObjects = new List<Transform>();
     private int tweenObjActiveIndex = 0;
+    private Vector3 defaultScale = Vector3.one;
+    private Vector3 targetScale = Vector3.one;
     #endregion
 
     #region MonoBehaviour Functions
@@ -20,10 +23,8 @@ public class PlayerBeadsTweener : MonoBehaviour
     #region Private Core Functions
     private void Tween(Transform t)
     {
-        LeanTween.cancel(t.gameObject);
-        t.localScale = Vector3.one;
-
-        LeanTween.scale(t.gameObject, Vector3.one * scaleUpMultiplier, tweenTime).setEasePunch();
+        targetScale = Vector3.one * scaleUpMultiplier;
+        t.DOPunchScale(targetScale, tweenTime, 1, .2f);
     }
     #endregion
 
