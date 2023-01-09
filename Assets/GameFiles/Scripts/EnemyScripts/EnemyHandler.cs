@@ -63,6 +63,8 @@ public class EnemyHandler : MonoBehaviour
     #region Public Core Functions
     public void PlayerCollisionRules(int playerLevel)
     {
+        PlayerSingleton.Instance.GetPlayerBeadsManager.RemoveCharacterControllerFromPreviousActiveTail();
+
         if (playerLevel > enemyLevel)
         {
             foreach (Transform t in beads)
@@ -76,7 +78,10 @@ public class EnemyHandler : MonoBehaviour
         else
         {
             print("Game Over!");
+            return;
         }
+
+        PlayerSingleton.Instance.GetPlayerBeadsManager.AddCharacterControllerToPlayerTail();
     }
     #endregion
 }

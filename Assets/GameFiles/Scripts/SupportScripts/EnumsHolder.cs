@@ -8,5 +8,12 @@ public enum UICanvas
 public enum SnakeCrawlDirection
 {
     Up,
-    Forward
+    Forward,
+    Backward
+};
+
+public enum BeadsMovementStyle
+{
+    Normal,
+    Slinky
 };

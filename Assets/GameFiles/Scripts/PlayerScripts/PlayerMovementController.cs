@@ -11,6 +11,8 @@ public class PlayerMovementController : MonoBehaviour
     [Header("Components Reference")]
     [SerializeField] private CharacterController characterController = null;
     [SerializeField] private PlayerBeadsManager playerBeadsManager = null;
+    [SerializeField] private Transform playerParentTransform = null;
+    [SerializeField] private ParticleSystem wormSquirtPS = null;
 
     [Header("Fake Gravity Attributes")]
     [SerializeField] private Transform groundChecker = null;
@@ -50,8 +52,16 @@ public class PlayerMovementController : MonoBehaviour
         {
             movementDirection = new Vector3(movementJS.Horizontal, 1, 0).normalized;
         }
-
-        characterController.Move(movementDirection * Time.deltaTime * moveSpeed);
+        
+        if (ActiveCrawlDirection == SnakeCrawlDirection.Backward)
+        {
+            movementDirection = new Vector3(0, 0, -1).normalized;
+            playerParentTransform.Translate(movementDirection * Time.deltaTime * moveSpeed);
+        }
+        else
+        {
+            characterController.Move(movementDirection * Time.deltaTime * moveSpeed);
+        }
 
         if (isGravityActive)
         {
@@ -59,7 +69,7 @@ public class PlayerMovementController : MonoBehaviour
         }
     }
     #endregion
-    //
+
     #region Getter And Setter
     public SnakeCrawlDirection ActiveCrawlDirection { get; set; }
     #endregion
@@ -82,6 +92,23 @@ public class PlayerMovementController : MonoBehaviour
         {
             velocity.y = -2f;
         }
+
+        if (isGrounded)
+        {
+            if (!wormSquirtPS.isPlaying)
+            {
+                wormSquirtPS.Play();
+                wormSquirtPS.GetComponent<ParticleSystemRenderer>().material.color = playerBeadsManager.GetPlayerHeadColor();
+            }
+        }
+        else
+        {
+            if (wormSquirtPS.isPlaying)
+            {
+                wormSquirtPS.Stop();
+            }
+        }
+
         velocity.y += gravity * Time.deltaTime;
         characterController.Move(velocity * Time.deltaTime);
     }
@@ -96,7 +123,6 @@ public class PlayerMovementController : MonoBehaviour
 
     public void Jump()
     {
-        print("Working");
         velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
     }
 
@@ -111,6 +137,10 @@ public class PlayerMovementController : MonoBehaviour
             case SnakeCrawlDirection.Forward:
                 ActiveCrawlDirection = direction;
                 isGravityActive = true;
+                break;
+            case SnakeCrawlDirection.Backward:
+                ActiveCrawlDirection = direction;
+                isGravityActive = false;
                 break;
         }
     }
