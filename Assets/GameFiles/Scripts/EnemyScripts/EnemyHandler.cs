@@ -77,8 +77,10 @@ public class EnemyHandler : MonoBehaviour
         }
         else
         {
-            print("Game Over!");
+            return;
         }
+
+        PlayerSingleton.Instance.GetPlayerBeadsManager.AddCharacterControllerToPlayerTail();
     }
 
     public void PlaySplashVFX()

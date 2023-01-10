@@ -74,7 +74,7 @@ public class PlayerMovementController : MonoBehaviour
         int tailTransformIndex = 0;
         foreach (PlayerBeadFollower playerBeadFollower in playerBeadFollowers)
         {
-            playerBeadFollower.TargetTransform = tailTransformReferences[tailTransformIndex];
+            playerBeadFollower.NormalMovementTargetTransform = tailTransformReferences[tailTransformIndex];
             tailTransformIndex++;
         }
     }

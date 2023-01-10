@@ -6,15 +6,20 @@ public class PlayerBeadFollower : MonoBehaviour
 {
     #region Properties
     [Header("Attributes")]
-    [SerializeField] private Transform beadTailtransform = null;
+    [SerializeField] private Transform beadTailTransform = null;
+    [SerializeField] private Transform beadHeadTransform = null;
     #endregion
 
     #region MonoBehaviour Functions
     #endregion
 
     #region Getter And Setter
-    public Transform TargetTransform { get; set; }
+    public Transform NormalMovementTargetTransform { get; set; }
 
-    public Transform GetBeadTailTransform { get => beadTailtransform; }
+    public Transform SlinkyMovementTargetTransform { get; set; }
+
+    public Transform GetBeadTailTransform { get => beadTailTransform; }
+
+    public Transform GetBeadHeadTransform { get => beadHeadTransform; }
     #endregion
 }

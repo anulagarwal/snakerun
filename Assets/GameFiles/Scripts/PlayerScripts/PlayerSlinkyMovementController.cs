@@ -7,13 +7,23 @@ public class PlayerSlinkyMovementController : MonoBehaviour
     #region Properties
     [Header("Attributes")]
     [SerializeField] private float translationSpeed = 0f;
+
+    [Header("Componens Reference")]
+    [SerializeField] private CharacterController headCharacterController = null;
     
     private List<Transform> translatePoints = new List<Transform>();
     private int translatePointIndex = 0;
     private Vector3 targetPosition = Vector3.zero;
+    private CharacterController playerTailCC = null;
+    private Transform headTransform = null;
     #endregion
 
     #region MonoBehaviour Functions
+    private void Start()
+    {
+        SwitchBeadMovementType(BeadFollowType.Tail);
+    }
+
     private void OnEnable()
     {
         SetupTargetPosition();
@@ -21,9 +31,9 @@ public class PlayerSlinkyMovementController : MonoBehaviour
 
     private void Update()
     {
-        if (Vector3.Distance(transform.position, targetPosition) > 0.1f)
+        if (Vector3.Distance(headTransform.position, targetPosition) > 0.1f)
         {
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * translationSpeed);
+            headTransform.position = Vector3.MoveTowards(headTransform.position, targetPosition, Time.deltaTime * translationSpeed);
         }
         else
         {
@@ -34,6 +44,8 @@ public class PlayerSlinkyMovementController : MonoBehaviour
 
     #region Getter And Setter
     public List<Transform> SetTranslatePoints { set { translatePoints = value; } }
+    
+    public CharacterController SetPlayerTailCC { set { playerTailCC = value; } }    
     #endregion
 
     #region Private Core Functions
@@ -46,6 +58,20 @@ public class PlayerSlinkyMovementController : MonoBehaviour
         {
             translatePointIndex = 0;
             PlayerSingleton.Instance.SwitchMovementType(MovementType.Normal);
+        }
+    }
+
+    private void SwitchBeadMovementType(BeadFollowType followType)
+    {
+        PlayerSingleton.Instance.GetPlayerBeadsManager.PlayerBeadFollowType = followType;
+        switch (followType)
+        {
+            case BeadFollowType.Head:
+                headTransform = headCharacterController.transform;
+                break;
+            case BeadFollowType.Tail:
+                headTransform = playerTailCC.transform;
+                break;
         }
     }
     #endregion

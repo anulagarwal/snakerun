@@ -21,3 +21,9 @@ public enum SoundType
 {
     Pop
 };
+
+public enum BeadFollowType
+{
+    Head,
+    Tail
+};

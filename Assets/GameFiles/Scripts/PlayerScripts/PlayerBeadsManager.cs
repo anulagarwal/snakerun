@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Drawing;
+using Unity.VisualScripting;
 
 public class PlayerBeadsManager : MonoBehaviour
 {
@@ -25,8 +26,8 @@ public class PlayerBeadsManager : MonoBehaviour
     [SerializeField] private Color32 litColor;
     [SerializeField] private Color32 shadedColor;
 
-    private BeadColors newBeadColors = new BeadColors();
     private List<BeadColors> playerBeadColorData = new List<BeadColors>();
+    private CharacterController tailCharacterController = null;
     #endregion
 
     #region Delegates
@@ -41,6 +42,7 @@ public class PlayerBeadsManager : MonoBehaviour
         UpdatePlayerLevelIndicatorTMP();
         EnablePlayerBeadsMovementMechanism(false);
         BeadsInitialColorSetup();
+        PlayerBeadFollowType = BeadFollowType.Head;
     }
 
     private void Update()
@@ -54,6 +56,8 @@ public class PlayerBeadsManager : MonoBehaviour
 
     #region Getter And Setter
     public int GetPlayerLevel { get => playerLevel; }
+
+    public BeadFollowType PlayerBeadFollowType { get; set; }
     #endregion
 
     #region Private Core Functions
@@ -74,7 +78,14 @@ public class PlayerBeadsManager : MonoBehaviour
     {
         for (int i = 0; i < playerBeadsTransforms.Count; i++)
         {
-            playerBeadsTransforms[i].position = Vector3.SlerpUnclamped(playerBeadsTransforms[i].position, playerBeadsTransforms[i].GetComponent<PlayerBeadFollower>().TargetTransform.position, beadsFollowSpeed * Time.deltaTime);
+            if (PlayerBeadFollowType == BeadFollowType.Head)
+            {
+                playerBeadsTransforms[i].position = Vector3.SlerpUnclamped(playerBeadsTransforms[i].position, playerBeadsTransforms[i].GetComponent<PlayerBeadFollower>().NormalMovementTargetTransform.position, beadsFollowSpeed * Time.deltaTime);
+            }
+            else if (PlayerBeadFollowType == BeadFollowType.Tail)
+            {
+                playerBeadsTransforms[i].position = Vector3.SlerpUnclamped(playerBeadsTransforms[i].position, playerBeadsTransforms[i].GetComponent<PlayerBeadFollower>().SlinkyMovementTargetTransform.position, beadsFollowSpeed * Time.deltaTime);
+            }
         }
     }
 
@@ -87,7 +98,7 @@ public class PlayerBeadsManager : MonoBehaviour
 
         if (beadTransform.TryGetComponent<PlayerBeadFollower>(out PlayerBeadFollower playerBeadFollower))
         {
-            playerBeadFollower.TargetTransform = lastPlayerBeadFollower.GetBeadTailTransform;
+            playerBeadFollower.NormalMovementTargetTransform = lastPlayerBeadFollower.GetBeadTailTransform;
             lastPlayerBeadFollower = playerBeadFollower;
             playerBeadsTransforms.Add(beadTransform);
             playerBeadColorUpdaters.Add(beadTransform.GetComponent<PlayerBeadColorUpdater>());
@@ -122,7 +133,7 @@ public class PlayerBeadsManager : MonoBehaviour
 
         if (newBeadTransform.TryGetComponent<PlayerBeadFollower>(out PlayerBeadFollower playerBeadFollower))
         {
-            playerBeadFollower.TargetTransform = lastPlayerBeadFollower.GetBeadTailTransform;
+            playerBeadFollower.NormalMovementTargetTransform = lastPlayerBeadFollower.GetBeadTailTransform;
             lastPlayerBeadFollower = playerBeadFollower;
             playerBeadsTransforms.Add(newBeadTransform);
             playerBeadColorUpdaters.Add(newBeadTransform.GetComponent<PlayerBeadColorUpdater>());
@@ -133,8 +144,13 @@ public class PlayerBeadsManager : MonoBehaviour
 
     public void SpawnAndUpdateColorOfFrontBeads(int count, Color32 litColor, Color32 shadedColor)
     {
+        RemoveCharacterControllerFromPreviousActiveTail();
+
+        BeadColors newBeadColors = new BeadColors();
         newBeadColors.litColor = litColor;
         newBeadColors.shadedColor = shadedColor;
+
+
 
         while (count > 0)
         {
@@ -142,6 +158,8 @@ public class PlayerBeadsManager : MonoBehaviour
             count--;
             playerBeadColorData.Insert(0, newBeadColors);
         }
+
+        AddCharacterControllerToPlayerTail();
     }
 
     public void UpdateAllBeadsColor()
@@ -168,6 +186,30 @@ public class PlayerBeadsManager : MonoBehaviour
         playerLevel--;
         lastPlayerBeadFollower = playerBeadsTransforms[playerBeadsTransforms.Count - 1].GetComponent<PlayerBeadFollower>();
         UpdatePlayerLevelIndicatorTMP();
+    }
+
+    public void AddCharacterControllerToPlayerTail()
+    {
+        lastPlayerBeadFollower.AddComponent<CharacterController>();
+        tailCharacterController = lastPlayerBeadFollower.GetComponent<CharacterController>();
+        tailCharacterController.center = new Vector3(0f, 0.5f, 0f);
+        tailCharacterController.radius = 0.5f;
+        tailCharacterController.height = 1f;
+
+        PlayerSingleton.Instance.GetPlayerSlinkyMovementController.SetPlayerTailCC = tailCharacterController;
+    }
+
+    public void RemoveCharacterControllerFromPreviousActiveTail()
+    {
+        Destroy(lastPlayerBeadFollower.GetComponent<CharacterController>());
+    }
+
+    public void ConnectBeadHeadForSlinkyMovement()
+    {
+        for (int i = playerBeadsTransforms.Count - 2; i > -1; i--)
+        {
+            playerBeadsTransforms[i].GetComponent<PlayerBeadFollower>().SlinkyMovementTargetTransform = playerBeadsTransforms[i + 1].GetComponent<PlayerBeadFollower>().GetBeadHeadTransform;
+        }
     }
     #endregion
 }

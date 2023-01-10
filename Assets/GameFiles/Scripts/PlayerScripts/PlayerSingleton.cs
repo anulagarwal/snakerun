@@ -56,6 +56,7 @@ public class PlayerSingleton : MonoBehaviour
             case MovementType.Slinky:
                 playerMovementController.enabled = false;
                 playerSlinkyMovementController.enabled = true;
+                playerBeadsManager.ConnectBeadHeadForSlinkyMovement();
                 break;
         }
     }
