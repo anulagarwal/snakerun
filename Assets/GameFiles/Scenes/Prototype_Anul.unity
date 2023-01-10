@@ -5594,7 +5594,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292af7b812a7e2a4cb22bb192376b270, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  translatePoints: []
+  translatePoints:
+  - {fileID: 186166030}
+  - {fileID: 879514891}
+  - {fileID: 193723747}
+  - {fileID: 1561997134}
+  - {fileID: 135723962}
+  - {fileID: 106373625}
+  - {fileID: 1849101843}
+  - {fileID: 129653883}
+  - {fileID: 895968543}
+  - {fileID: 685251079}
+  - {fileID: 1712451258}
 --- !u!65 &2706546697893788996
 BoxCollider:
   m_ObjectHideFlags: 0

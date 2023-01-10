@@ -158,6 +158,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   translationSpeed: 10
   headCharacterController: {fileID: 2643941308372705568}
+  targetParent: {fileID: 2643941307982719532}
+  mainParent: {fileID: 2643941309861928851}
 --- !u!114 &2643941308372705575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -389,7 +391,7 @@ Transform:
   - {fileID: 2381927812201875836}
   - {fileID: 2381927811791271090}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3610577509279371069
 GameObject:

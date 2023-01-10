@@ -10,6 +10,8 @@ public class PlayerSlinkyMovementController : MonoBehaviour
 
     [Header("Componens Reference")]
     [SerializeField] private CharacterController headCharacterController = null;
+    [SerializeField] private Transform targetParent = null;
+    [SerializeField] private Transform mainParent = null;
     
     private List<Transform> translatePoints = new List<Transform>();
     private int translatePointIndex = 0;
@@ -57,6 +59,7 @@ public class PlayerSlinkyMovementController : MonoBehaviour
         if (translatePointIndex >= translatePoints.Count)
         {
             translatePointIndex = 0;
+            SwitchBeadMovementType(BeadFollowType.Head);
             PlayerSingleton.Instance.SwitchMovementType(MovementType.Normal);
         }
     }
@@ -68,9 +71,11 @@ public class PlayerSlinkyMovementController : MonoBehaviour
         {
             case BeadFollowType.Head:
                 headTransform = headCharacterController.transform;
+                headCharacterController.transform.parent = mainParent;
                 break;
             case BeadFollowType.Tail:
                 headTransform = playerTailCC.transform;
+                headCharacterController.transform.parent = targetParent;
                 break;
         }
     }
