@@ -165,7 +165,7 @@ MonoBehaviour:
   strength: 6
   litColor:
     serializedVersion: 2
-    rgba: 4294311823
+    rgba: 4278227248
   shadedColor:
     serializedVersion: 2
     rgba: 4286810440
@@ -270,7 +270,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4473135941453105470
 Transform:
   m_ObjectHideFlags: 0

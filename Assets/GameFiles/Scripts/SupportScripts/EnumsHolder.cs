@@ -16,3 +16,8 @@ public enum MovementType
     Normal,
     Slinky
 };
+
+public enum SoundType
+{
+    Pop
+};
