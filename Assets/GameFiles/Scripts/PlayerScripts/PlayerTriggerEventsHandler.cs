@@ -10,7 +10,7 @@ public class PlayerTriggerEventsHandler : MonoBehaviour
         if (other.gameObject.tag == "Finish")
         {
             PlatformFinishlineHandler.Instance.PlayConfettiVFX();
-            PlayerSingleton.Instance.DisableMovement();
+            PlayerSingleton.Instance.DisableNormalMovement();
 
             UIPackSingleton.Instance.SwitchUICanvas(UICanvas.GameOverCanvas);
         }
@@ -34,6 +34,11 @@ public class PlayerTriggerEventsHandler : MonoBehaviour
         {
             other.gameObject.GetComponent<ColorBeadHandler>().AddColorBeadToPlayerTrail();
             Destroy(other.gameObject);
+        }
+        else if (other.gameObject.tag == "SlinkyMovementTrigger")
+        {
+            PlayerSingleton.Instance.GetPlayerSlinkyMovementController.SetTranslatePoints = other.gameObject.GetComponent<SlinkyMovementTriggerHandler>().GetTranslatePoints;
+            PlayerSingleton.Instance.SwitchMovementType(MovementType.Slinky);
         }
     }
 

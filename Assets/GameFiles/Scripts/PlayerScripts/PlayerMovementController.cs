@@ -7,6 +7,7 @@ public class PlayerMovementController : MonoBehaviour
     #region Properties
     [Header("Attributes")]
     [SerializeField] private float moveSpeed = 0f;
+    [SerializeField] private float directionalSpeed = 0f;
 
     [Header("Components Reference")]
     [SerializeField] private CharacterController characterController = null;
@@ -42,20 +43,23 @@ public class PlayerMovementController : MonoBehaviour
 
     private void Update()
     {
-        if (ActiveCrawlDirection == SnakeCrawlDirection.Forward)
+        if (!PlayerSingleton.Instance.ForceStopPlayerMovement)
         {
-            movementDirection = new Vector3(movementJS.Horizontal, 0, 1).normalized;
-        }
-        else if (ActiveCrawlDirection == SnakeCrawlDirection.Up)
-        {
-            movementDirection = new Vector3(movementJS.Horizontal, 1, 0).normalized;
-        }
+            if (ActiveCrawlDirection == SnakeCrawlDirection.Forward)
+            {
+                movementDirection = new Vector3(movementJS.Horizontal * directionalSpeed, 0, 1).normalized;
+            }
+            else if (ActiveCrawlDirection == SnakeCrawlDirection.Up)
+            {
+                movementDirection = new Vector3(movementJS.Horizontal * directionalSpeed, 1, 0).normalized;
+            }
 
-        characterController.Move(movementDirection * Time.deltaTime * moveSpeed);
+            characterController.Move(movementDirection * Time.deltaTime * moveSpeed);
 
-        if (isGravityActive)
-        {
-            FakeGravity();
+            if (isGravityActive)
+            {
+                FakeGravity();
+            }
         }
     }
     #endregion
@@ -96,7 +100,6 @@ public class PlayerMovementController : MonoBehaviour
 
     public void Jump()
     {
-        print("Working");
         velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
     }
 

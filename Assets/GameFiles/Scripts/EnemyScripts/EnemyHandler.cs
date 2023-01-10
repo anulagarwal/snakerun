@@ -13,6 +13,7 @@ public class EnemyHandler : MonoBehaviour
     [Header("Components Reference")]
     [SerializeField] private TextMeshPro enemyLevelTMP = null;
     [SerializeField] private GameObject beadPrefab = null;
+    [SerializeField] private GameObject splashVFXObj = null;
     [SerializeField] private List<Transform> beads = new List<Transform>();
 
     [Header("Bead Colors Attributes")]
@@ -71,12 +72,20 @@ public class EnemyHandler : MonoBehaviour
             }
             beads.Clear();
             PlayerSingleton.Instance.GetPlayerBeadsManager.UpdateAllBeadsColor();
+            PlaySplashVFX();
             Destroy(this.gameObject);
         }
         else
         {
             print("Game Over!");
         }
+    }
+
+    public void PlaySplashVFX()
+    {
+        splashVFXObj.SetActive(true);
+        splashVFXObj.transform.parent = null;
+        Destroy(splashVFXObj, 5f);
     }
     #endregion
 }

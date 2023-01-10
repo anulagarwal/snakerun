@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 2643941308372705568}
   - component: {fileID: 2643941308372705573}
   - component: {fileID: 2643941308372705574}
+  - component: {fileID: 2169674370089785038}
   - component: {fileID: 2643941308372705575}
   - component: {fileID: 3597483026720246858}
   - component: {fileID: 3816661429575015625}
@@ -104,6 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMovementController: {fileID: 2643941308372705574}
+  playerSlinkyMovementController: {fileID: 2169674370089785038}
   playerBeadsManager: {fileID: 3597483026720246858}
 --- !u!114 &2643941308372705574
 MonoBehaviour:
@@ -118,6 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
+  directionalSpeed: 5
   characterController: {fileID: 2643941308372705568}
   playerBeadsManager: {fileID: 3597483026720246858}
   groundChecker: {fileID: 1064163967813069033}
@@ -169,6 +172,19 @@ MonoBehaviour:
   - {fileID: 4882448775199896602}
   - {fileID: 8344704249518829801}
   - {fileID: 3789161257785342930}
+--- !u!114 &2169674370089785038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2643941308372705570}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e486c60539f532344a2055dd5921ec10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translationSpeed: 10
 --- !u!114 &2643941308372705575
 MonoBehaviour:
   m_ObjectHideFlags: 0

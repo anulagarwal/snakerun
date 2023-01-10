@@ -45,7 +45,7 @@ public class PlayerBeadsManager : MonoBehaviour
 
     private void Update()
     {
-        if (playerBeadsMovementMechanism != null)
+        if (playerBeadsMovementMechanism != null && (!PlayerSingleton.Instance.ForceStopPlayerMovement || PlayerSingleton.Instance.GetPlayerSlinkyMovementController.enabled))
         {
             playerBeadsMovementMechanism();
         }

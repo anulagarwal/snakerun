@@ -10,3 +10,9 @@ public enum SnakeCrawlDirection
     Up,
     Forward
 };
+
+public enum MovementType
+{
+    Normal,
+    Slinky
+};

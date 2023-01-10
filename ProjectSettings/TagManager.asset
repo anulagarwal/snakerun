@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Obstacle
   - ColorBead
+  - SlinkyMovementTrigger
   layers:
   - Default
   - TransparentFX

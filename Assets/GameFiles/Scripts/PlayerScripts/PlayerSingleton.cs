@@ -9,6 +9,7 @@ public class PlayerSingleton : MonoBehaviour
 
     [Header("Components Reference")]
     [SerializeField] private PlayerMovementController playerMovementController = null;
+    [SerializeField] private PlayerSlinkyMovementController playerSlinkyMovementController = null;
     [SerializeField] private PlayerBeadsManager playerBeadsManager = null;
     #endregion
 
@@ -21,18 +22,42 @@ public class PlayerSingleton : MonoBehaviour
         }
         Instance = this;
     }
+
+    private void Start()
+    {
+        ForceStopPlayerMovement = false;
+    }
     #endregion
 
     #region Getter And Setter
     public PlayerMovementController GetPlayerMovementController { get => playerMovementController; }
+
+    public PlayerSlinkyMovementController GetPlayerSlinkyMovementController { get => playerSlinkyMovementController; }
     
     public PlayerBeadsManager GetPlayerBeadsManager { get => playerBeadsManager; }
+
+    public bool ForceStopPlayerMovement { get; set; }
     #endregion
 
     #region Public Core Functions
-    public void DisableMovement()
+    public void DisableNormalMovement()
     {
         playerMovementController.EnablePlayerMovement(false);
+    }
+
+    public void SwitchMovementType(MovementType type)
+    {
+        switch (type)
+        {
+            case MovementType.Normal:
+                playerMovementController.enabled = true;
+                playerSlinkyMovementController.enabled = false;
+                break;
+            case MovementType.Slinky:
+                playerMovementController.enabled = false;
+                playerSlinkyMovementController.enabled = true;
+                break;
+        }
     }
     #endregion
 }
