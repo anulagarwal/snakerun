@@ -37,8 +37,16 @@ public class PlayerTriggerEventsHandler : MonoBehaviour
         }
         else if (other.gameObject.tag == "SlinkyMovementTrigger")
         {
-            PlayerSingleton.Instance.GetPlayerSlinkyMovementController.SetTranslatePoints = other.gameObject.GetComponent<SlinkyMovementTriggerHandler>().GetTranslatePoints;
-            PlayerSingleton.Instance.SwitchMovementType(MovementType.Slinky);
+            if (PlayerSingleton.Instance.GetPlayerMovementController.IsHeadActive)
+            {
+                PlayerSingleton.Instance.GetPlayerMovementController.SwapActiveCharacterControllerToTail();
+                PlayerSingleton.Instance.GetPlayerBeadsManager.SwitchPlayerActiveMovementDirection(BeadFollowType.Tail);
+            }
+            else
+            {
+                PlayerSingleton.Instance.GetPlayerMovementController.SwapActiveCharacterControllerToHead();
+                PlayerSingleton.Instance.GetPlayerBeadsManager.SwitchPlayerActiveMovementDirection(BeadFollowType.Head);
+            }
         }
     }
 

@@ -42,12 +42,13 @@ public class PlayerBeadsManager : MonoBehaviour
         UpdatePlayerLevelIndicatorTMP();
         EnablePlayerBeadsMovementMechanism(false);
         BeadsInitialColorSetup();
-        PlayerBeadFollowType = BeadFollowType.Head;
+
+        SwitchPlayerActiveMovementDirection(BeadFollowType.Head);
     }
 
     private void Update()
     {
-        if (playerBeadsMovementMechanism != null && (!PlayerSingleton.Instance.ForceStopPlayerMovement || PlayerSingleton.Instance.GetPlayerSlinkyMovementController.enabled))
+        if (playerBeadsMovementMechanism != null && !PlayerSingleton.Instance.ForceStopPlayerMovement)
         {
             playerBeadsMovementMechanism();
         }
@@ -84,7 +85,13 @@ public class PlayerBeadsManager : MonoBehaviour
             }
             else if (PlayerBeadFollowType == BeadFollowType.Tail)
             {
-                playerBeadsTransforms[i].position = Vector3.SlerpUnclamped(playerBeadsTransforms[i].position, playerBeadsTransforms[i].GetComponent<PlayerBeadFollower>().SlinkyMovementTargetTransform.position, beadsFollowSpeed * Time.deltaTime);
+                if (playerBeadsTransforms[i].TryGetComponent<PlayerBeadFollower>(out PlayerBeadFollower playerBeadFollower))
+                {
+                    if (!playerBeadFollower.IsTail)
+                    {
+                        playerBeadsTransforms[i].position = Vector3.SlerpUnclamped(playerBeadsTransforms[i].position, playerBeadFollower.SlinkyMovementTargetTransform.position, beadsFollowSpeed * Time.deltaTime);
+                    }
+                }
             }
         }
     }
@@ -96,12 +103,14 @@ public class PlayerBeadsManager : MonoBehaviour
         beadTransform.parent = playerParentTransform;
         beadTransform.position = new Vector3(lastPlayerBeadFollower.transform.position.x, 0, lastPlayerBeadFollower.transform.position.z + beadPositionOffset);
 
+        playerBeadsTransforms[playerBeadsTransforms.Count - 1].GetComponent<PlayerBeadFollower>().IsTail = false;
         if (beadTransform.TryGetComponent<PlayerBeadFollower>(out PlayerBeadFollower playerBeadFollower))
         {
             playerBeadFollower.NormalMovementTargetTransform = lastPlayerBeadFollower.GetBeadTailTransform;
             lastPlayerBeadFollower = playerBeadFollower;
             playerBeadsTransforms.Add(beadTransform);
             playerBeadColorUpdaters.Add(beadTransform.GetComponent<PlayerBeadColorUpdater>());
+            playerBeadFollower.IsTail = true;
         }
     }
     #endregion
@@ -126,6 +135,7 @@ public class PlayerBeadsManager : MonoBehaviour
 
     public void AddBeadToPlayerTailFromEnemies(Transform newBeadTransform)
     {
+        playerBeadsTransforms[playerBeadsTransforms.Count - 1].GetComponent<PlayerBeadFollower>().IsTail = false;
         playerLevel++;
         UpdatePlayerLevelIndicatorTMP();
         newBeadTransform.parent = playerParentTransform;
@@ -133,6 +143,7 @@ public class PlayerBeadsManager : MonoBehaviour
 
         if (newBeadTransform.TryGetComponent<PlayerBeadFollower>(out PlayerBeadFollower playerBeadFollower))
         {
+            playerBeadFollower.IsTail = true;
             playerBeadFollower.NormalMovementTargetTransform = lastPlayerBeadFollower.GetBeadTailTransform;
             lastPlayerBeadFollower = playerBeadFollower;
             playerBeadsTransforms.Add(newBeadTransform);
@@ -196,7 +207,7 @@ public class PlayerBeadsManager : MonoBehaviour
         tailCharacterController.radius = 0.5f;
         tailCharacterController.height = 1f;
 
-        PlayerSingleton.Instance.GetPlayerSlinkyMovementController.SetPlayerTailCC = tailCharacterController;
+        PlayerSingleton.Instance.GetPlayerMovementController.SetTailCharacterController = tailCharacterController;
     }
 
     public void RemoveCharacterControllerFromPreviousActiveTail()
@@ -211,5 +222,16 @@ public class PlayerBeadsManager : MonoBehaviour
             playerBeadsTransforms[i].GetComponent<PlayerBeadFollower>().SlinkyMovementTargetTransform = playerBeadsTransforms[i + 1].GetComponent<PlayerBeadFollower>().GetBeadHeadTransform;
         }
     }
+
+    public void SwitchPlayerActiveMovementDirection(BeadFollowType followType)
+    {
+        PlayerBeadFollowType = followType;
+
+        if (PlayerBeadFollowType == BeadFollowType.Tail)
+        {
+            ConnectBeadHeadForSlinkyMovement();
+        }
+    }
     #endregion
 }
+//

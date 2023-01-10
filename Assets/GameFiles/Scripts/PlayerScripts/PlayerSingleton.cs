@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//
 public class PlayerSingleton : MonoBehaviour
 {
     #region Properties
@@ -9,7 +9,6 @@ public class PlayerSingleton : MonoBehaviour
 
     [Header("Components Reference")]
     [SerializeField] private PlayerMovementController playerMovementController = null;
-    [SerializeField] private PlayerSlinkyMovementController playerSlinkyMovementController = null;
     [SerializeField] private PlayerBeadsManager playerBeadsManager = null;
     #endregion
 
@@ -31,8 +30,6 @@ public class PlayerSingleton : MonoBehaviour
 
     #region Getter And Setter
     public PlayerMovementController GetPlayerMovementController { get => playerMovementController; }
-
-    public PlayerSlinkyMovementController GetPlayerSlinkyMovementController { get => playerSlinkyMovementController; }
     
     public PlayerBeadsManager GetPlayerBeadsManager { get => playerBeadsManager; }
 
@@ -43,23 +40,6 @@ public class PlayerSingleton : MonoBehaviour
     public void DisableNormalMovement()
     {
         playerMovementController.EnablePlayerMovement(false);
-    }
-
-    public void SwitchMovementType(MovementType type)
-    {
-        switch (type)
-        {
-            case MovementType.Normal:
-                playerMovementController.enabled = true;
-                playerSlinkyMovementController.enabled = false;
-                playerBeadsManager.PlayerBeadFollowType = BeadFollowType.Head;
-                break;
-            case MovementType.Slinky:
-                playerMovementController.enabled = false;
-                playerSlinkyMovementController.enabled = true;
-                playerBeadsManager.ConnectBeadHeadForSlinkyMovement();
-                break;
-        }
     }
     #endregion
 }

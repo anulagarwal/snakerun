@@ -21,5 +21,7 @@ public class PlayerBeadFollower : MonoBehaviour
     public Transform GetBeadTailTransform { get => beadTailTransform; }
 
     public Transform GetBeadHeadTransform { get => beadHeadTransform; }
+
+    public bool IsTail { get; set; }
     #endregion
 }

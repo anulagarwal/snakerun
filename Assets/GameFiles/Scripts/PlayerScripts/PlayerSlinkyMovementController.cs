@@ -60,7 +60,6 @@ public class PlayerSlinkyMovementController : MonoBehaviour
         {
             translatePointIndex = 0;
             SwitchBeadMovementType(BeadFollowType.Head);
-            PlayerSingleton.Instance.SwitchMovementType(MovementType.Normal);
         }
     }
 

@@ -10,8 +10,10 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private float directionalSpeed = 0f;
 
     [Header("Components Reference")]
-    [SerializeField] private CharacterController characterController = null;
+    [SerializeField] private CharacterController headCharacterController = null;
     [SerializeField] private PlayerBeadsManager playerBeadsManager = null;
+    [SerializeField] private Transform mainParent = null;
+    [SerializeField] private Transform targetParent = null;
 
     [Header("Fake Gravity Attributes")]
     [SerializeField] private Transform groundChecker = null;
@@ -29,6 +31,8 @@ public class PlayerMovementController : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
     private VariableJoystick movementJS = null;
     private Vector3 movementDirection = Vector3.zero;
+    private CharacterController tailCharacterController = null;
+    private CharacterController activeCharacterController = null;
     #endregion
 
     #region MonoBehaviour Functions
@@ -37,7 +41,9 @@ public class PlayerMovementController : MonoBehaviour
         SwitchCrawlDirection(SnakeCrawlDirection.Forward);
         movementJS = UIPackSingleton.Instance.GetGameplayCanvasHandler.GetMovementJS;
         BeadsInitialSetup();
+        IsHeadActive = true;
 
+        SwapActiveCharacterControllerToHead();
         EnablePlayerMovement(false);
     }
 
@@ -54,7 +60,7 @@ public class PlayerMovementController : MonoBehaviour
                 movementDirection = new Vector3(movementJS.Horizontal * directionalSpeed, 1, 0).normalized;
             }
 
-            characterController.Move(movementDirection * Time.deltaTime * moveSpeed);
+            activeCharacterController.Move(movementDirection * Time.deltaTime * moveSpeed);
 
             if (isGravityActive)
             {
@@ -63,9 +69,13 @@ public class PlayerMovementController : MonoBehaviour
         }
     }
     #endregion
-    //
+    
     #region Getter And Setter
     public SnakeCrawlDirection ActiveCrawlDirection { get; set; }
+
+    public CharacterController SetTailCharacterController { set { tailCharacterController = value; } }
+
+    public bool IsHeadActive { get; set; }
     #endregion
 
     #region Private Core Functions
@@ -87,7 +97,7 @@ public class PlayerMovementController : MonoBehaviour
             velocity.y = -2f;
         }
         velocity.y += gravity * Time.deltaTime;
-        characterController.Move(velocity * Time.deltaTime);
+        activeCharacterController.Move(velocity * Time.deltaTime);
     }
     #endregion
 
@@ -116,6 +126,20 @@ public class PlayerMovementController : MonoBehaviour
                 isGravityActive = true;
                 break;
         }
+    }
+
+    public void SwapActiveCharacterControllerToTail()
+    {
+        IsHeadActive = false;
+        activeCharacterController = tailCharacterController;
+        headCharacterController.transform.parent = targetParent;
+    }
+
+    public void SwapActiveCharacterControllerToHead()
+    {
+        IsHeadActive = true;
+        activeCharacterController = headCharacterController;
+        headCharacterController.transform.parent = mainParent;
     }
     #endregion
 }
