@@ -14,6 +14,7 @@ public class ColorBeadHandler : MonoBehaviour
     [Header("Components Reference")]
     [SerializeField] private TextMeshPro beadStrengthTMP = null;
     [SerializeField] private MeshRenderer meshRenderer = null;
+    [SerializeField] private GameObject splashVFXObj = null;
     #endregion
 
     #region MonoBehaviour Functions
@@ -38,6 +39,10 @@ public class ColorBeadHandler : MonoBehaviour
     #region Public Core functions
     public void AddColorBeadToPlayerTrail()
     {
+        splashVFXObj.SetActive(true);
+        splashVFXObj.transform.parent = null;
+        Destroy(splashVFXObj, 5f);
+
         PlayerSingleton.Instance.GetPlayerBeadsManager.SpawnAndUpdateColorOfFrontBeads(strength, litColor, shadedColor);
         PlayerSingleton.Instance.GetPlayerBeadsManager.UpdateAllBeadsColor();
         //PlayerSingleton.Instance.GetPlayerBeadsManager.TweenAllBeads();

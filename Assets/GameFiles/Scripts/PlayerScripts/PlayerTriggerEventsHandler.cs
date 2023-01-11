@@ -20,6 +20,8 @@ public class PlayerTriggerEventsHandler : MonoBehaviour
         }
         else if (other.gameObject.tag == "Enemy")
         {
+            SoundManager.Instance.PlaySound(SoundType.Pop);
+
             other.gameObject.GetComponent<EnemyHandler>().PlayerCollisionRules(PlayerSingleton.Instance.GetPlayerBeadsManager.GetPlayerLevel);
         }
         else if (other.gameObject.tag == "Climber")
@@ -32,6 +34,8 @@ public class PlayerTriggerEventsHandler : MonoBehaviour
         }
         else if (other.gameObject.tag == "ColorBead")
         {
+            SoundManager.Instance.PlaySound(SoundType.Pop);
+
             other.gameObject.GetComponent<ColorBeadHandler>().AddColorBeadToPlayerTrail();
             Destroy(other.gameObject);
         }
