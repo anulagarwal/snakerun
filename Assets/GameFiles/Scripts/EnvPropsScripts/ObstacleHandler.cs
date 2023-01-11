@@ -42,6 +42,7 @@ public class ObstacleHandler : MonoBehaviour
                 obstacleStrength--;
             }
 
+            EnemyManager.Instance.Updatecolor();
             Destroy(this.gameObject);
         }
     }

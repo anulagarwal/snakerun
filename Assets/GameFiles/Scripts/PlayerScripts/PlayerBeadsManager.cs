@@ -170,6 +170,7 @@ public class PlayerBeadsManager : MonoBehaviour
             playerBeadColorData.Insert(0, newBeadColors);
         }
 
+        EnemyManager.Instance.Updatecolor();
         AddCharacterControllerToPlayerTail();
     }
 

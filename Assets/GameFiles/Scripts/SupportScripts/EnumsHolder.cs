@@ -27,3 +27,9 @@ public enum BeadFollowType
     Head,
     Tail
 };
+
+public enum EnemyBeadColorType
+{
+    Eatable,
+    Danger
+};

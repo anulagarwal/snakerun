@@ -22,7 +22,7 @@ public class PlayerTriggerEventsHandler : MonoBehaviour
         {
             SoundManager.Instance.PlaySound(SoundType.Pop);
 
-            other.gameObject.GetComponent<EnemyHandler>().PlayerCollisionRules(PlayerSingleton.Instance.GetPlayerBeadsManager.GetPlayerLevel);
+            other.gameObject.transform.parent.transform.parent.GetComponent<EnemyHandler>().PlayerCollisionRules(PlayerSingleton.Instance.GetPlayerBeadsManager.GetPlayerLevel);
         }
         else if (other.gameObject.tag == "Climber")
         {

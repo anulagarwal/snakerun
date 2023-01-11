@@ -15,12 +15,15 @@ public class EnemyHandler : MonoBehaviour
     [SerializeField] private GameObject beadPrefab = null;
     [SerializeField] private GameObject splashVFXObj = null;
     [SerializeField] private List<Transform> beads = new List<Transform>();
+    [SerializeField] private Transform triggerBoxTransform = null;
 
     [Header("Bead Colors Attributes")]
-    [SerializeField] private Color32 litColor;
-    [SerializeField] private Color32 shadedColor;
+    [SerializeField] private Color32 litColorEatable;
+    [SerializeField] private Color32 shadedColorEatable;
+    [SerializeField] private Color32 litColorDanger;
+    [SerializeField] private Color32 shadedColorDanger;
 
-    private BeadColors startColors = new BeadColors();
+    private BeadColors beadColors = new BeadColors();
     private Vector3 spawnPosition = Vector3.zero;
     private int enemyLevel = 0;
     #endregion
@@ -34,30 +37,27 @@ public class EnemyHandler : MonoBehaviour
     }
     #endregion
 
+    #region Getter And Setter
+    public int GetEnemyLevel { get => enemyLevel; }
+    #endregion
+
     #region Private Core Functions
     private void SpawnBeads()
     {
-        startColors.litColor = litColor;
-        startColors.shadedColor = shadedColor;
-
         for (int i = 0; i < beadSpawnAmount; i++)
         {
             beads.Add(Instantiate(beadPrefab, spawnPosition, Quaternion.identity, this.transform).gameObject.transform);
             spawnPosition.z -= spawnOffset;
         }
 
-        foreach(Transform t in beads)
-        {
-            if (t.TryGetComponent<EnemyBeadColorUpdater>(out EnemyBeadColorUpdater enemyBeadColorUpdater))
-            {
-                enemyBeadColorUpdater.StartColors = startColors;
-                enemyBeadColorUpdater.enabled = true;
-            }            
-        }
-
         //Set Enemy Level
         enemyLevel = beads.Count;
         enemyLevelTMP.SetText(enemyLevel.ToString());
+
+        //Change Color
+        ChangeEnemyBeadColors();
+
+        triggerBoxTransform.localScale = new Vector3(1, 1,enemyLevel/4f); ;
     }
     #endregion
 
@@ -73,6 +73,8 @@ public class EnemyHandler : MonoBehaviour
             beads.Clear();
             PlayerSingleton.Instance.GetPlayerBeadsManager.UpdateAllBeadsColor();
             PlaySplashVFX();
+
+            EnemyManager.Instance.Updatecolor();
             Destroy(this.gameObject);
         }
         else
@@ -88,6 +90,25 @@ public class EnemyHandler : MonoBehaviour
         splashVFXObj.SetActive(true);
         splashVFXObj.transform.parent = null;
         Destroy(splashVFXObj, 5f);
+    }
+
+    public void ChangeEnemyBeadColors()
+    {
+        if (PlayerSingleton.Instance.GetPlayerBeadsManager.GetPlayerLevel >= enemyLevel)
+        {
+            beadColors.litColor = litColorEatable;
+            beadColors.shadedColor = shadedColorEatable;
+        }
+        else
+        {
+            beadColors.litColor = litColorDanger;
+            beadColors.shadedColor = shadedColorDanger;
+        }
+
+        foreach (Transform t in beads)
+        {
+            t.GetComponent<EnemyBeadColorUpdater>().UpdateColor(beadColors);
+        }
     }
     #endregion
 }

@@ -13,11 +13,9 @@ public class EnemyBeadColorUpdater : MonoBehaviour
     #endregion
 
     #region MonoBehaviour Functions
-    private void Start()
+    private void Awake()
     {
         beadMat = meshRenderer.materials[0];
-        beadMat.SetColor("_LitColor", startColors.litColor);
-        beadMat.SetColor("_ShadedColor", startColors.shadedColor);
     }
     #endregion
 
@@ -26,5 +24,11 @@ public class EnemyBeadColorUpdater : MonoBehaviour
     #endregion
 
     #region Public Core Functions
+    public void UpdateColor(BeadColors colors)
+    {
+        startColors = colors;
+        beadMat.SetColor("_LitColor", startColors.litColor);
+        beadMat.SetColor("_ShadedColor", startColors.shadedColor);
+    }
     #endregion
 }
