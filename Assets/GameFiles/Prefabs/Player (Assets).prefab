@@ -124,7 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   directionalSpeed: 2
-  knockBackDelay: 1
+  knockBackDelay: 0.75
   knockbackSpeed: 15
   headCharacterController: {fileID: 2643941308372705568}
   playerBeadsManager: {fileID: 3597483026720246858}
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc34dd906e5ad3e4d97a12c361a39aad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLevel: 5
+  playerLevel: 3
   playerLevelIndicatorTMP: {fileID: 4863936323213012239}
   beadsFollowSpeed: 15
   playerBeadsTransforms:
@@ -214,7 +214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tweenDelay: 0.05
-  tweenTime: 0.2
+  tweenTime: 0.15
   scaleUpMultiplier: 1.25
 --- !u!114 &4876261546172738056
 MonoBehaviour:

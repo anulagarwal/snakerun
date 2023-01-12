@@ -31,7 +31,10 @@ public class EnemyManager : MonoBehaviour
     {
         foreach (EnemyHandler eh in enemyHandlers)
         {
-            eh.ChangeEnemyBeadColors();
+            if (eh != null)
+            {
+                eh.ChangeEnemyBeadColors();
+            }
         }
     }
 
@@ -39,7 +42,10 @@ public class EnemyManager : MonoBehaviour
     {
         foreach(EnemyHandler eh in enemyHandlers)
         {
-            eh.GetComponent<EnemyMovementHandler>().enabled = false;
+            if (eh != null)
+            {
+                eh.GetComponent<EnemyMovementHandler>().enabled = false;
+            }
         }
     }
     #endregion

@@ -52,7 +52,7 @@ public class PlayerMovementController : MonoBehaviour
 
     private void Update()
     {
-        if (!PlayerSingleton.Instance.ForceStopPlayerMovement)
+        if (!PlayerSingleton.Instance.ForceStopPlayerMovement && !isPlayerKnocked)
         {
             if (ActiveCrawlDirection == SnakeCrawlDirection.Forward)
             {

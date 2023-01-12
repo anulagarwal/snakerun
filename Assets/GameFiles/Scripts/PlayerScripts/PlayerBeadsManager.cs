@@ -165,7 +165,7 @@ public class PlayerBeadsManager : MonoBehaviour
 
         while (count > 0)
         {
-            AddBeadToPlayerTail(Instantiate(playerBeadPrefab, Vector3.zero, Quaternion.identity).transform);
+            AddBeadToPlayerTail(Instantiate(playerBeadPrefab, new Vector3(lastPlayerBeadFollower.transform.position.x, 0, lastPlayerBeadFollower.transform.position.z + beadPositionOffset), Quaternion.identity).transform);
             count--;
             playerBeadColorData.Insert(0, newBeadColors);
         }

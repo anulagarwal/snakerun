@@ -66,7 +66,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 5
+  m_Radius: 10
   m_Center: {x: 0, y: 0, z: -4}
 --- !u!114 &133476356731749289
 MonoBehaviour:
@@ -80,8 +80,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbbec824213534a42872c1d0472373de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnOffset: 0.25
-  beadSpawnAmount: 10
+  spawnOffset: 0.7
+  beadSpawnAmount: 5
   enemyLevelTMP: {fileID: 133476358305779515}
   beadPrefab: {fileID: 414159800944734783, guid: b68ad1ce0b43f114281b30e148dcb39c,
     type: 3}
@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a66f2b51251d1346b4eddc81ab08088, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 4
+  moveSpeed: 6
   moveLength: 20
 --- !u!1 &133476358045931652
 GameObject:
