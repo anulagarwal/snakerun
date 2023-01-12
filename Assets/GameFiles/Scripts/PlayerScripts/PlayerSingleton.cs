@@ -8,6 +8,8 @@ public class PlayerSingleton : MonoBehaviour
     public static PlayerSingleton Instance = null;
 
     [Header("Components Reference")]
+    [SerializeField] private GameObject playerParentObj = null;
+    [SerializeField] private GameObject splashVFXObj = null;
     [SerializeField] private PlayerMovementController playerMovementController = null;
     [SerializeField] private PlayerBeadsManager playerBeadsManager = null;
     #endregion
@@ -40,6 +42,13 @@ public class PlayerSingleton : MonoBehaviour
     public void DisableNormalMovement()
     {
         playerMovementController.EnablePlayerMovement(false);
+    }
+
+    public void GameOver()
+    {
+        splashVFXObj.SetActive(true);
+        splashVFXObj.transform.parent = null;
+        playerParentObj.SetActive(false);
     }
     #endregion
 }

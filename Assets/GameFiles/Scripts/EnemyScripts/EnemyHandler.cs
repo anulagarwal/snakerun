@@ -79,6 +79,7 @@ public class EnemyHandler : MonoBehaviour
         }
         else
         {
+            PlayerSingleton.Instance.GameOver();
             return;
         }
 

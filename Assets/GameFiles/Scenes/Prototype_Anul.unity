@@ -995,7 +995,7 @@ PrefabInstance:
     - target: {fileID: 133476356731749289, guid: 717ff0333875b93479b2bee55bc4771c,
         type: 3}
       propertyPath: beadSpawnAmount
-      value: 3
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 133476356731749291, guid: 717ff0333875b93479b2bee55bc4771c,
         type: 3}
