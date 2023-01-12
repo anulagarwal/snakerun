@@ -26,6 +26,15 @@ public class PlatformFinishlineHandler : MonoBehaviour
     public void PlayConfettiVFX()
     {
         confettiVFXObj.SetActive(true);
+
+        Invoke("Invoke_Victory", 3f);
+    }
+    #endregion
+
+    #region Invoke Functions
+    private void Invoke_Victory()
+    {
+        UIPackSingleton.Instance.SwitchUICanvas(UICanvas.GameOverCanvas, GameOverStatus.Victory);
     }
     #endregion
 }

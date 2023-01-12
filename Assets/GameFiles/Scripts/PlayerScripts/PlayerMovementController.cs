@@ -8,6 +8,8 @@ public class PlayerMovementController : MonoBehaviour
     [Header("Attributes")]
     [SerializeField] private float moveSpeed = 0f;
     [SerializeField] private float directionalSpeed = 0f;
+    [SerializeField] private float knockBackDelay = 0f;
+    [SerializeField] private float knockbackSpeed = 0f;
 
     [Header("Components Reference")]
     [SerializeField] private CharacterController headCharacterController = null;
@@ -33,6 +35,7 @@ public class PlayerMovementController : MonoBehaviour
     private Vector3 movementDirection = Vector3.zero;
     private CharacterController tailCharacterController = null;
     private CharacterController activeCharacterController = null;
+    private bool isPlayerKnocked = false;
     #endregion
 
     #region MonoBehaviour Functions
@@ -66,6 +69,10 @@ public class PlayerMovementController : MonoBehaviour
             {
                 FakeGravity();
             }
+        }
+        else if (isPlayerKnocked)
+        {
+            mainParent.transform.Translate(Vector3.back * Time.deltaTime * knockbackSpeed);
         }
     }
     #endregion
@@ -140,6 +147,20 @@ public class PlayerMovementController : MonoBehaviour
         IsHeadActive = true;
         activeCharacterController = headCharacterController;
         headCharacterController.transform.parent = mainParent;
+    }
+
+    public void KnockBackPlayer()
+    {
+        isPlayerKnocked = true;
+        Invoke("Invoke_ResetPlayerMovement", knockBackDelay);
+    }
+    #endregion
+
+    #region Invoke Functions
+    private void Invoke_ResetPlayerMovement()
+    {
+        PlayerSingleton.Instance.ForceStopPlayerMovement = false;
+        isPlayerKnocked = false;
     }
     #endregion
 }

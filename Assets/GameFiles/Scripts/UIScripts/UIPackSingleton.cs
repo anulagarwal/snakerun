@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIPackSingleton : MonoBehaviour
 {
@@ -12,7 +14,12 @@ public class UIPackSingleton : MonoBehaviour
     [SerializeField] private GameObject gameplayCanvasObj = null;
     [SerializeField] private GameObject gameOverCanvasObj = null;
 
+    [Header("GameOver Screen Components Reference")]
+    [SerializeField] private GameObject victoryPanelObj = null;
+    [SerializeField] private GameObject defeatPanelObj = null;
+
     [Header("Components Reference")]
+    [SerializeField] private List<TextMeshProUGUI> levelTexts = new List<TextMeshProUGUI>();
     [SerializeField] private GameplayCanvasHandler gameplayCanvasHandler = null;
     #endregion
 
@@ -25,14 +32,29 @@ public class UIPackSingleton : MonoBehaviour
         }
         Instance = this;
     }
+
+    private void Start()
+    {
+        UpdateLevelText();
+    }
     #endregion
 
     #region Getter And Setter
     public GameplayCanvasHandler GetGameplayCanvasHandler { get => gameplayCanvasHandler; }
     #endregion
 
+    #region Private Core Functions
+    private void UpdateLevelText()
+    {
+        foreach (TextMeshProUGUI tmp in levelTexts)
+        {
+            tmp.SetText("Level " + SceneManager.GetActiveScene().buildIndex.ToString());
+        }
+    }
+    #endregion
+
     #region Public Core Functions
-    public void SwitchUICanvas(UICanvas activeCanvas)
+    public void SwitchUICanvas(UICanvas activeCanvas, GameOverStatus status = GameOverStatus.None)
     {
         switch (activeCanvas)
         {
@@ -47,9 +69,22 @@ public class UIPackSingleton : MonoBehaviour
                 gameOverCanvasObj.SetActive(false);
                 break;
             case UICanvas.GameOverCanvas:
+                EnemyManager.Instance.StopAllEnemies();
+
                 mainMenuCanvasObj.SetActive(false);
                 gameplayCanvasObj.SetActive(false);
                 gameOverCanvasObj.SetActive(true);
+
+                if(status == GameOverStatus.Victory)
+                { 
+                    victoryPanelObj.SetActive(true);
+                    defeatPanelObj.SetActive(false);
+                }
+                else if (status == GameOverStatus.Defeat)
+                {
+                    victoryPanelObj.SetActive(false);
+                    defeatPanelObj.SetActive(true);
+                }
                 break;
         }
     }

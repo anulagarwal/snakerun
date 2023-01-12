@@ -124,6 +124,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   directionalSpeed: 2
+  knockBackDelay: 1
+  knockbackSpeed: 15
   headCharacterController: {fileID: 2643941308372705568}
   playerBeadsManager: {fileID: 3597483026720246858}
   mainParent: {fileID: 2643941309861928851}
@@ -378,7 +380,7 @@ Transform:
   - {fileID: 2381927812201875836}
   - {fileID: 2381927811791271090}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3610577509279371069
 GameObject:

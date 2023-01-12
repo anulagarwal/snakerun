@@ -49,6 +49,8 @@ public class PlayerSingleton : MonoBehaviour
         splashVFXObj.SetActive(true);
         splashVFXObj.transform.parent = null;
         playerParentObj.SetActive(false);
+
+        UIPackSingleton.Instance.SwitchUICanvas(UICanvas.GameOverCanvas, GameOverStatus.Defeat);
     }
     #endregion
 }

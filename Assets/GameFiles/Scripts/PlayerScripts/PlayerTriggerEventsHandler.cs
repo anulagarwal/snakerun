@@ -30,7 +30,8 @@ public class PlayerTriggerEventsHandler : MonoBehaviour
         }
         else if (other.gameObject.tag == "Obstacle")
         {
-            other.gameObject.GetComponent<ObstacleHandler>().CheckForCollisionRules(PlayerSingleton.Instance.GetPlayerBeadsManager.GetPlayerLevel);
+            PlayerSingleton.Instance.GetPlayerMovementController.KnockBackPlayer();
+            //other.gameObject.GetComponent<ObstacleHandler>().CheckForCollisionRules(PlayerSingleton.Instance.GetPlayerBeadsManager.GetPlayerLevel);
         }
         else if (other.gameObject.tag == "ColorBead")
         {

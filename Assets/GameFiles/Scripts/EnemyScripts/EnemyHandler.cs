@@ -64,7 +64,7 @@ public class EnemyHandler : MonoBehaviour
     #region Public Core Functions
     public void PlayerCollisionRules(int playerLevel)
     {
-        if (playerLevel > enemyLevel)
+        if (playerLevel >= enemyLevel)
         {
             foreach (Transform t in beads)
             {
@@ -99,11 +99,15 @@ public class EnemyHandler : MonoBehaviour
         {
             beadColors.litColor = litColorEatable;
             beadColors.shadedColor = shadedColorEatable;
+            splashVFXObj.GetComponent<ParticleSystemRenderer>().material.color = beadColors.litColor;
+            splashVFXObj.transform.GetChild(0).GetComponent<ParticleSystemRenderer>().material.color = beadColors.litColor;
         }
         else
         {
             beadColors.litColor = litColorDanger;
             beadColors.shadedColor = shadedColorDanger;
+            splashVFXObj.GetComponent<ParticleSystemRenderer>().material.color = beadColors.litColor;
+            splashVFXObj.transform.GetChild(0).GetComponent<ParticleSystemRenderer>().material.color = beadColors.litColor;
         }
 
         foreach (Transform t in beads)

@@ -33,6 +33,8 @@ public class ColorBeadHandler : MonoBehaviour
     {
         meshRenderer.materials[0].SetColor("_LitColor", litColor);
         meshRenderer.materials[0].SetColor("_ShadedColor", shadedColor);
+        splashVFXObj.GetComponent<ParticleSystemRenderer>().material.color = litColor;
+        splashVFXObj.transform.GetChild(0).GetComponent<ParticleSystemRenderer>().material.color = litColor;
     }
     #endregion
 

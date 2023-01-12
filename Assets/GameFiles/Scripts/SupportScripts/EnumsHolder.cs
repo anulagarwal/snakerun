@@ -33,3 +33,10 @@ public enum EnemyBeadColorType
     Eatable,
     Danger
 };
+
+public enum GameOverStatus
+{
+    Victory,
+    Defeat,
+    None
+};

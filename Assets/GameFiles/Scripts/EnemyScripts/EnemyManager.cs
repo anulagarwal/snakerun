@@ -34,5 +34,13 @@ public class EnemyManager : MonoBehaviour
             eh.ChangeEnemyBeadColors();
         }
     }
+
+    public void StopAllEnemies()
+    {
+        foreach(EnemyHandler eh in enemyHandlers)
+        {
+            eh.GetComponent<EnemyMovementHandler>().enabled = false;
+        }
+    }
     #endregion
 }
