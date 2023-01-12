@@ -46,7 +46,7 @@ public class PlayerBeadsManager : MonoBehaviour
         SwitchPlayerActiveMovementDirection(BeadFollowType.Head);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (playerBeadsMovementMechanism != null && !PlayerSingleton.Instance.ForceStopPlayerMovement)
         {

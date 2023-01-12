@@ -49,7 +49,16 @@ public class PlayerBeadsTweener : MonoBehaviour
         if (tweenObjActiveIndex >= tweenableObjects.Count)
         {
             tweenObjActiveIndex = 0;
+            ResetScale();
             CancelInvoke();
+        }
+    }
+
+    private void ResetScale()
+    {
+        foreach(Transform t in tweenableObjects)
+        {
+            t.localScale = Vector3.one;
         }
     }
     #endregion

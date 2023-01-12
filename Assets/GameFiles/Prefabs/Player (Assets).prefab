@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  directionalSpeed: 2
+  directionalSpeed: 0.5
   knockBackDelay: 0.75
   knockbackSpeed: 15
   headCharacterController: {fileID: 2643941308372705568}
