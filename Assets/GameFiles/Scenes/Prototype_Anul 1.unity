@@ -962,7 +962,7 @@ PrefabInstance:
     - target: {fileID: 133476356731749289, guid: 717ff0333875b93479b2bee55bc4771c,
         type: 3}
       propertyPath: beadSpawnAmount
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 133476356731749291, guid: 717ff0333875b93479b2bee55bc4771c,
         type: 3}
@@ -5082,6 +5082,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3597483026720246858, guid: 81a4b50767b3c4f459bddba607293020,
+        type: 3}
+      propertyPath: litColor.rgba
+      value: 4294461696
       objectReference: {fileID: 0}
     - target: {fileID: 3816661429575015625, guid: 81a4b50767b3c4f459bddba607293020,
         type: 3}

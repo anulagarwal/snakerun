@@ -195,7 +195,7 @@ MonoBehaviour:
     type: 3}
   litColor:
     serializedVersion: 2
-    rgba: 4292868096
+    rgba: 4294469120
   shadedColor:
     serializedVersion: 2
     rgba: 4284772096
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tweenDelay: 0.05
-  tweenTime: 0.4
+  tweenTime: 0.2
   scaleUpMultiplier: 1.25
 --- !u!114 &4876261546172738056
 MonoBehaviour:
@@ -378,7 +378,7 @@ Transform:
   - {fileID: 2381927812201875836}
   - {fileID: 2381927811791271090}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3610577509279371069
 GameObject:

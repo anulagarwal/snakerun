@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c61e78b20cbc64ab7590c5509f53aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strength: 6
+  strength: 1
   litColor:
     serializedVersion: 2
     rgba: 4278227248
