@@ -10,6 +10,8 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private float directionalSpeed = 0f;
     [SerializeField] private float knockBackDelay = 0f;
     [SerializeField] private float knockbackSpeed = 0f;
+//    [SerializeField] private float knockbackSpeed = 0f;
+
 
     [Header("Components Reference")]
     [SerializeField] private CharacterController headCharacterController = null;
@@ -32,6 +34,8 @@ public class PlayerMovementController : MonoBehaviour
     private CharacterController tailCharacterController = null;
     private CharacterController activeCharacterController = null;
     private bool isPlayerKnocked = false;
+    private float oldX;
+
     #endregion
 
     #region MonoBehaviour Functions
@@ -45,19 +49,34 @@ public class PlayerMovementController : MonoBehaviour
         EnablePlayerMovement(false);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        if (!PlayerSingleton.Instance.ForceStopPlayerMovement)
+        float x = 0;
+
+        if (!PlayerSingleton.Instance.ForceStopPlayerMovement && !isPlayerKnocked)
         {
+            if (Input.GetMouseButtonDown(0))
+            {
+                oldX = Input.mousePosition.x;
+            }
+
+            if (Input.GetMouseButton(0))
+            {
+                x = (Input.mousePosition.x - oldX);
+                oldX = Input.mousePosition.x;
+            }
+
             if (ActiveCrawlDirection == SnakeCrawlDirection.Forward)
             {
-                movementDirection = new Vector3(movementJS.Horizontal * directionalSpeed, 0, 1).normalized;
+                // movementDirection = new Vector3(movementJS.Horizontal * directionalSpeed, 0, 1).normalized;
+                movementDirection = new Vector3(x * directionalSpeed, 0, 1).normalized;
             }
             else if (ActiveCrawlDirection == SnakeCrawlDirection.Up)
             {
-                movementDirection = new Vector3(movementJS.Horizontal * directionalSpeed, 1, 0).normalized;
+                //movementDirection = new Vector3(movementJS.Horizontal * directionalSpeed, 1, 0).normalized;
+                movementDirection = new Vector3(x * directionalSpeed, 1, 0).normalized;
             }
-
+            //transform.Translate(new Vector3(x, 0, moveSpeed) * Time.deltaTime);
             activeCharacterController.Move(movementDirection * Time.deltaTime * moveSpeed);
 
             if (isGravityActive)

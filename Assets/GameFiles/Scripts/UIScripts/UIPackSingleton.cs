@@ -35,7 +35,6 @@ public class UIPackSingleton : MonoBehaviour
 
     private void Start()
     {
-        UpdateLevelText();
     }
     #endregion
 
@@ -44,11 +43,11 @@ public class UIPackSingleton : MonoBehaviour
     #endregion
 
     #region Private Core Functions
-    private void UpdateLevelText()
+    public void UpdateLevelText(int l)
     {
         foreach (TextMeshProUGUI tmp in levelTexts)
         {
-            tmp.SetText("Level " + SceneManager.GetActiveScene().buildIndex.ToString());
+            tmp.SetText("Level " + l);
         }
     }
     #endregion
@@ -76,7 +75,8 @@ public class UIPackSingleton : MonoBehaviour
                 gameOverCanvasObj.SetActive(true);
 
                 if(status == GameOverStatus.Victory)
-                { 
+                {
+                    GameManager.Instance.Win();
                     victoryPanelObj.SetActive(true);
                     defeatPanelObj.SetActive(false);
                 }
@@ -89,4 +89,9 @@ public class UIPackSingleton : MonoBehaviour
         }
     }
     #endregion
+
+    public void OnClick_Continue()
+    {
+        GameManager.Instance.ChangeLevel();
+    }
 }
