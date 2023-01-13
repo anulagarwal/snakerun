@@ -9,12 +9,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 414159800944734782}
+  - component: {fileID: 5327899015931266642}
   - component: {fileID: 414159800944734753}
   - component: {fileID: 5367866718491425231}
   - component: {fileID: 4472436431897064259}
+  - component: {fileID: 1455624185993381228}
   m_Layer: 0
   m_Name: PlayerBead (Enemy)
-  m_TagString: Untagged
+  m_TagString: Bead
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37,6 +39,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &5327899015931266642
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 414159800944734783}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &414159800944734753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,6 +93,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 414159802260547138}
+--- !u!114 &1455624185993381228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 414159800944734783}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74d91aaba6ad0cb418aeeaaa21a74555, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  finalPushSpeed: 20
 --- !u!1 &414159801829874269
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,7 +12,8 @@ public class PlayerTriggerEventsHandler : MonoBehaviour
             PlatformFinishlineHandler.Instance.PlayConfettiVFX();
             PlayerSingleton.Instance.DisableNormalMovement();
 
-            UIPackSingleton.Instance.SwitchUICanvas(UICanvas.GameOverCanvas);
+            Invoke("Invoke_ReleaseBeadsForFinalPush", 2f);
+            //UIPackSingleton.Instance.SwitchUICanvas(UICanvas.GameOverCanvas);
         }
         else if (other.gameObject.tag == "Jumper")
         {
@@ -61,6 +62,13 @@ public class PlayerTriggerEventsHandler : MonoBehaviour
         {
             PlayerSingleton.Instance.GetPlayerMovementController.SwitchCrawlDirection(SnakeCrawlDirection.Forward);
         }
+    }
+    #endregion
+
+    #region Invoke Functions
+    private void Invoke_ReleaseBeadsForFinalPush()
+    {
+        PlayerSingleton.Instance.GetPlayerBeadsManager.ReleaseBeadsForFinalPush();
     }
     #endregion
 }

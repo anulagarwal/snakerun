@@ -23,10 +23,6 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private LayerMask groundMask = 0;
     [SerializeField] private float jumpHeight = 3f;
 
-    [Header("Beads Attributes")]
-    [SerializeField] private List<Transform> tailTransformReferences = new List<Transform>();
-    [SerializeField] private List<PlayerBeadFollower> playerBeadFollowers = new List<PlayerBeadFollower>();
-
     private bool isGravityActive = false;
     private bool isGrounded = false;
     private float gravity = -9.81f;
@@ -43,7 +39,6 @@ public class PlayerMovementController : MonoBehaviour
     {
         SwitchCrawlDirection(SnakeCrawlDirection.Forward);
         movementJS = UIPackSingleton.Instance.GetGameplayCanvasHandler.GetMovementJS;
-        BeadsInitialSetup();
         IsHeadActive = true;
 
         SwapActiveCharacterControllerToHead();
@@ -86,16 +81,6 @@ public class PlayerMovementController : MonoBehaviour
     #endregion
 
     #region Private Core Functions
-    private void BeadsInitialSetup()
-    {
-        int tailTransformIndex = 0;
-        foreach (PlayerBeadFollower playerBeadFollower in playerBeadFollowers)
-        {
-            playerBeadFollower.NormalMovementTargetTransform = tailTransformReferences[tailTransformIndex];
-            tailTransformIndex++;
-        }
-    }
-
     private void FakeGravity()
     {
         isGrounded = Physics.CheckSphere(groundChecker.position, groundDistance, groundMask);

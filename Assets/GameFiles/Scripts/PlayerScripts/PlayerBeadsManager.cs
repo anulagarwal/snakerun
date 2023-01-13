@@ -8,17 +8,25 @@ using Unity.VisualScripting;
 public class PlayerBeadsManager : MonoBehaviour
 {
     #region Properties
+    [Header("Final Push Attributes")]
+    [SerializeField] private float pushDelay = 0f; 
+
     [Header("Player Level Indicator Attributes")]
     [SerializeField] private int playerLevel = 0;
+    [SerializeField] private int startLength = 0;
+    [Range(0, 1f)][SerializeField] private float beadSpawnOffsetDistance = 0f;
     [SerializeField] private TextMeshPro playerLevelIndicatorTMP = null;
+
+    [Header("Components Reference")]
+    [SerializeField] private Transform mainParent = null; 
 
     [Header("Player Beads Attributes")]
     [SerializeField] private float beadsFollowSpeed = 0f;
+    [SerializeField] private List<Transform> beadTailTransforms = new List<Transform>();
     [SerializeField] private List<Transform> playerBeadsTransforms = new List<Transform>();
     [SerializeField] private List<PlayerBeadColorUpdater> playerBeadColorUpdaters = new List<PlayerBeadColorUpdater>();
     [Range(0, 1)][SerializeField] private float beadPositionOffset = 0f;
     [SerializeField] private Transform playerParentTransform = null;
-    [SerializeField] private PlayerBeadFollower lastPlayerBeadFollower = null;
     [SerializeField] private PlayerBeadsTweener playerBeadsTweener = null;
     [SerializeField] private GameObject playerBeadPrefab = null;
 
@@ -28,6 +36,8 @@ public class PlayerBeadsManager : MonoBehaviour
 
     private List<BeadColors> playerBeadColorData = new List<BeadColors>();
     private CharacterController tailCharacterController = null;
+    private Vector3 spawnPosition = Vector3.zero;
+    private PlayerBeadFollower lastPlayerBeadFollower = null;
     #endregion
 
     #region Delegates
@@ -37,6 +47,11 @@ public class PlayerBeadsManager : MonoBehaviour
     #endregion
 
     #region MonoBehaviour Functions
+    private void Awake()
+    {
+        InitialSetup();
+    }
+
     private void Start()
     {
         UpdatePlayerLevelIndicatorTMP();
@@ -62,6 +77,25 @@ public class PlayerBeadsManager : MonoBehaviour
     #endregion
 
     #region Private Core Functions
+    private void InitialSetup()
+    {
+        SpawnNewBead(startLength);
+    }
+
+    private void SpawnNewBead(int spawnAmount)
+    {
+        while (spawnAmount > 0)
+        {
+            playerBeadsTransforms.Add(Instantiate(playerBeadPrefab, spawnPosition, Quaternion.identity, mainParent).transform);
+            playerBeadColorUpdaters.Add(playerBeadsTransforms[playerBeadsTransforms.Count - 1].GetComponent<PlayerBeadColorUpdater>());
+            playerBeadsTransforms[playerBeadsTransforms.Count - 1].GetComponent<PlayerBeadFollower>().NormalMovementTargetTransform = beadTailTransforms[beadTailTransforms.Count - 1];
+            beadTailTransforms.Add(playerBeadsTransforms[playerBeadsTransforms.Count - 1].GetComponent<PlayerBeadFollower>().GetBeadTailTransform);
+            spawnAmount--;
+            spawnPosition.z -= beadSpawnOffsetDistance;
+        }
+        lastPlayerBeadFollower = playerBeadsTransforms[playerBeadsTransforms.Count - 1].GetComponent<PlayerBeadFollower>();
+    }
+
     private void BeadsInitialColorSetup()
     {
         int index = 0;
@@ -232,6 +266,25 @@ public class PlayerBeadsManager : MonoBehaviour
         {
             ConnectBeadHeadForSlinkyMovement();
         }
+    }
+
+    public void ReleaseBeadsForFinalPush()
+    {
+        StartCoroutine(FinalPush());
+    }
+    #endregion
+
+    #region Coroutine
+    private IEnumerator FinalPush()
+    {
+        for (int i = playerBeadsTransforms.Count - 1; i >= 0; i--)
+        {
+            playerBeadsTransforms[i].GetComponent<BeadFinalPushHandler>().enabled = true;
+            yield return new WaitForSeconds(pushDelay);
+        }
+        Destroy(mainParent.gameObject);
+
+        StopAllCoroutines();
     }
     #endregion
 }
