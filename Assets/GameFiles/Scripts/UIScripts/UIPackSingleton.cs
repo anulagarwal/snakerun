@@ -1,8 +1,9 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class UIPackSingleton : MonoBehaviour
 {
@@ -20,6 +21,12 @@ public class UIPackSingleton : MonoBehaviour
 
     [Header("Components Reference")]
     [SerializeField] private List<TextMeshProUGUI> levelTexts = new List<TextMeshProUGUI>();
+    [SerializeField] private Transform radial;
+    [SerializeField] private Transform smile;
+    [SerializeField] private Transform sad;
+
+
+
     [SerializeField] private GameplayCanvasHandler gameplayCanvasHandler = null;
     #endregion
 
@@ -79,11 +86,19 @@ public class UIPackSingleton : MonoBehaviour
                     GameManager.Instance.Win();
                     victoryPanelObj.SetActive(true);
                     defeatPanelObj.SetActive(false);
+                    radial.transform.localScale = Vector3.zero;
+                    smile.transform.localScale = Vector3.zero;
+                    radial.DOScale(Vector3.one, 0.5f);
+                    radial.DORotate(new Vector3(0, -180f, 0), 0.5f).SetLoops(-1,LoopType.Yoyo);
+                    smile.DOScale(Vector3.one, 0.3f);
                 }
                 else if (status == GameOverStatus.Defeat)
                 {
                     victoryPanelObj.SetActive(false);
                     defeatPanelObj.SetActive(true);
+                    sad.transform.localScale = Vector3.zero;
+                    sad.DOScale(Vector3.one, 0.5f);
+
                 }
                 break;
         }
