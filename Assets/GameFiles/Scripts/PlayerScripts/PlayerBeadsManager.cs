@@ -61,9 +61,9 @@ public class PlayerBeadsManager : MonoBehaviour
         SwitchPlayerActiveMovementDirection(BeadFollowType.Head);
     }
 
-    private void FixedUpdate()
+    private void LateUpdate()
     {
-        if (playerBeadsMovementMechanism != null && !PlayerSingleton.Instance.ForceStopPlayerMovement)
+        if (playerBeadsMovementMechanism != null)
         {
             playerBeadsMovementMechanism();
         }
@@ -123,7 +123,7 @@ public class PlayerBeadsManager : MonoBehaviour
                 {
                     if (!playerBeadFollower.IsTail)
                     {
-                        playerBeadsTransforms[i].position = Vector3.SlerpUnclamped(playerBeadsTransforms[i].position, playerBeadFollower.SlinkyMovementTargetTransform.position, beadsFollowSpeed * Time.deltaTime);
+                        playerBeadsTransforms[i].position = Vector3.SlerpUnclamped(playerBeadsTransforms[i].position, playerBeadFollower.SlinkyMovementTargetTransform.position, beadsFollowSpeed * Time.smoothDeltaTime);
                     }
                 }
             }

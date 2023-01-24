@@ -12,6 +12,8 @@ public class PlayerSingleton : MonoBehaviour
     [SerializeField] private GameObject splashVFXObj = null;
     [SerializeField] private PlayerMovementController playerMovementController = null;
     [SerializeField] private PlayerBeadsManager playerBeadsManager = null;
+    [SerializeField] private PlayerMoveTowardsTarget playerMoveTowardsTarget = null;
+    [SerializeField] private MeshRenderer headMR = null;
     #endregion
 
     #region MonoBehaviour Functions
@@ -41,7 +43,10 @@ public class PlayerSingleton : MonoBehaviour
     #region Public Core Functions
     public void DisableNormalMovement()
     {
-        playerMovementController.EnablePlayerMovement(false);
+        CMVCManager.Instance.DisableFollow();
+        playerMovementController.enabled = false;
+        //playerMovementController.EnablePlayerMovement(false);
+        playerMoveTowardsTarget.EnableMoveTowards(true);
     }
 
     public void GameOver()
@@ -50,6 +55,11 @@ public class PlayerSingleton : MonoBehaviour
         splashVFXObj.transform.parent = null;
         playerParentObj.SetActive(false);
         Invoke("Invoke_DefeatUI", 1f);
+    }
+
+    public void DisableHead()
+    {
+        headMR.gameObject.SetActive(false);
     }
     #endregion
 

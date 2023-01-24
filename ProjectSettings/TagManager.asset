@@ -10,6 +10,9 @@ TagManager:
   - Obstacle
   - ColorBead
   - SlinkyMovementTrigger
+  - Bead
+  - Head
+  - EatTrigger
   layers:
   - Default
   - TransparentFX

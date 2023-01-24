@@ -12,7 +12,7 @@ public class PlayerTriggerEventsHandler : MonoBehaviour
             PlatformFinishlineHandler.Instance.PlayConfettiVFX();
             PlayerSingleton.Instance.DisableNormalMovement();
 
-            Invoke("Invoke_ReleaseBeadsForFinalPush", 2f);
+            //Invoke("Invoke_ReleaseBeadsForFinalPush", 2f);
             //UIPackSingleton.Instance.SwitchUICanvas(UICanvas.GameOverCanvas);
         }
         else if (other.gameObject.tag == "Jumper")
@@ -53,6 +53,10 @@ public class PlayerTriggerEventsHandler : MonoBehaviour
                 PlayerSingleton.Instance.GetPlayerMovementController.SwapActiveCharacterControllerToHead();
                 PlayerSingleton.Instance.GetPlayerBeadsManager.SwitchPlayerActiveMovementDirection(BeadFollowType.Head);
             }
+        }
+        else if (other.gameObject.tag == "EatTrigger")
+        {
+            PlayerSingleton.Instance.DisableHead();
         }
     }
 

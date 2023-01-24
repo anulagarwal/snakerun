@@ -49,7 +49,7 @@ public class PlayerMovementController : MonoBehaviour
         EnablePlayerMovement(false);
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         float x = 0;
 
@@ -86,7 +86,7 @@ public class PlayerMovementController : MonoBehaviour
         }
         else if (isPlayerKnocked)
         {
-            mainParent.transform.Translate(Vector3.back * Time.deltaTime * knockbackSpeed);
+            mainParent.transform.Translate(Vector3.back * Time.smoothDeltaTime * knockbackSpeed);
         }
     }
     #endregion

@@ -14,8 +14,9 @@ public class EatTriggerHandler : MonoBehaviour
     {
         if (other.gameObject.tag == "Bead")
         {
-            //plusPS.Play();
-            Destroy(other.gameObject);
+            other.gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = false;
+            plusPS.Play();
+            //Destroy(other.gameObject);
         }
     }
     #endregion
