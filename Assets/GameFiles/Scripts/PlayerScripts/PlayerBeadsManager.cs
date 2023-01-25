@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using System.Drawing;
 using Unity.VisualScripting;
+using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerBeadsManager : MonoBehaviour
 {
@@ -16,9 +17,12 @@ public class PlayerBeadsManager : MonoBehaviour
     [SerializeField] private int startLength = 0;
     [Range(0, 1f)][SerializeField] private float beadSpawnOffsetDistance = 0f;
     [SerializeField] private TextMeshPro playerLevelIndicatorTMP = null;
+    [SerializeField] private ParticleSystem debrisPS = null;
 
     [Header("Components Reference")]
-    [SerializeField] private Transform mainParent = null; 
+    [SerializeField] private Transform mainParent = null;
+    [SerializeField] private GameObject playerObj = null;
+    [SerializeField] private PlayerTriggerEventsHandler playerTriggerEventsHandler = null;
 
     [Header("Player Beads Attributes")]
     [SerializeField] private float beadsFollowSpeed = 0f;
@@ -38,6 +42,7 @@ public class PlayerBeadsManager : MonoBehaviour
     private CharacterController tailCharacterController = null;
     private Vector3 spawnPosition = Vector3.zero;
     private PlayerBeadFollower lastPlayerBeadFollower = null;
+    private int beadMRIndex = 0;
     #endregion
 
     #region Delegates
@@ -294,6 +299,26 @@ public class PlayerBeadsManager : MonoBehaviour
             t.parent = null;
         }
     }
+
+    public void HideMeshRenderer(bool value)
+    {
+        beadMRIndex = 0;
+        CancelInvoke("Invoke_DisableBeadsMR");
+        CancelInvoke("Invoke_EnableBeadsMR");
+        playerObj.SetActive(!value);
+
+        if (value)
+        {
+            InvokeRepeating("Invoke_DisableBeadsMR", 0.02f, 0.02f);
+            debrisPS.Play();
+        }
+        else
+        {
+            InvokeRepeating("Invoke_EnableBeadsMR", 0.02f, 0.02f);
+            debrisPS.Stop();
+        }
+        playerTriggerEventsHandler.IsTriggerEventsActive = !value;
+    }
     #endregion
 
     #region Coroutine
@@ -307,6 +332,32 @@ public class PlayerBeadsManager : MonoBehaviour
         Destroy(mainParent.gameObject);
 
         StopAllCoroutines();
+    }
+    #endregion
+
+    #region Invoke Functions
+    private void Invoke_DisableBeadsMR()
+    {
+        if (beadMRIndex > playerBeadsTransforms.Count)
+        {
+            beadMRIndex = 0;
+            CancelInvoke("Invoke_DisableBeadsMR");
+            return;
+        }
+        playerBeadsTransforms[beadMRIndex].GetChild(0).GetComponent<MeshRenderer>().enabled = false;
+        beadMRIndex++;
+    }
+
+    private void Invoke_EnableBeadsMR()
+    {
+        if (beadMRIndex > playerBeadsTransforms.Count)
+        {
+            beadMRIndex = 0;
+            CancelInvoke("Invoke_EnableBeadsMR");
+            return;
+        }
+        playerBeadsTransforms[beadMRIndex].GetChild(0).GetComponent<MeshRenderer>().enabled = true;
+        beadMRIndex++;
     }
     #endregion
 }

@@ -81,7 +81,7 @@ public class PlayerMovementController : MonoBehaviour
 
             if (isGravityActive)
             {
-                //FakeGravity();
+                FakeGravity();
             }
         }
         else if (isPlayerKnocked)
@@ -157,18 +157,6 @@ public class PlayerMovementController : MonoBehaviour
     {
         isPlayerKnocked = true;
         Invoke("Invoke_ResetPlayerMovement", knockBackDelay);
-    }
-
-    public void EnableUndergroundMovement(bool value)
-    {
-        if (value)
-        {
-            mainParent.position = new Vector3(transform.position.x, -2f, transform.position.z);
-        }
-        else
-        {
-            mainParent.position = new Vector3(transform.position.x, 0f, transform.position.z);
-        }
     }
     #endregion
 
