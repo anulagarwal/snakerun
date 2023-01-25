@@ -3341,12 +3341,6 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 73863765abeda4b4fb4d7feb8856620e, type: 3}
---- !u!4 &2039082347 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2643941308961037309, guid: 81a4b50767b3c4f459bddba607293020,
-    type: 3}
-  m_PrefabInstance: {fileID: 2643941308717394531}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2071378842 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4473135940477569204, guid: 73863765abeda4b4fb4d7feb8856620e,
@@ -3646,31 +3640,6 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2381927811791271091, guid: 81a4b50767b3c4f459bddba607293020,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2381927812201875837, guid: 81a4b50767b3c4f459bddba607293020,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2381927812421036843, guid: 81a4b50767b3c4f459bddba607293020,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2381927812503480508, guid: 81a4b50767b3c4f459bddba607293020,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2643941307982719533, guid: 81a4b50767b3c4f459bddba607293020,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2643941309861928844, guid: 81a4b50767b3c4f459bddba607293020,
         type: 3}
       propertyPath: m_Name
@@ -3729,41 +3698,6 @@ PrefabInstance:
     - target: {fileID: 2643941309861928851, guid: 81a4b50767b3c4f459bddba607293020,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3597483026720246858, guid: 81a4b50767b3c4f459bddba607293020,
-        type: 3}
-      propertyPath: playerLevel
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3597483026720246858, guid: 81a4b50767b3c4f459bddba607293020,
-        type: 3}
-      propertyPath: startLength
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3597483026720246858, guid: 81a4b50767b3c4f459bddba607293020,
-        type: 3}
-      propertyPath: beadSpawnOffsetDistance
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 3597483026720246858, guid: 81a4b50767b3c4f459bddba607293020,
-        type: 3}
-      propertyPath: beadTailTransforms.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3597483026720246858, guid: 81a4b50767b3c4f459bddba607293020,
-        type: 3}
-      propertyPath: beadTailTransforms.Array.data[0]
-      value: 
-      objectReference: {fileID: 2039082347}
-    - target: {fileID: 3597483026720246858, guid: 81a4b50767b3c4f459bddba607293020,
-        type: 3}
-      propertyPath: playerBeadsTransforms.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3597483026720246858, guid: 81a4b50767b3c4f459bddba607293020,
-        type: 3}
-      propertyPath: playerBeadColorUpdaters.Array.size
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
