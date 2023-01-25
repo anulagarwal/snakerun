@@ -8,12 +8,13 @@ public class MovementJSTouchEventsHandler : MonoBehaviour, IPointerUpHandler, IP
     #region Interface Functions
     public void OnPointerDown(PointerEventData eventData)
     {
-        //PlayerSingleton.Instance.ForceStopPlayerMovement = false;
+        print("Working");
+        PlayerSingleton.Instance.GetPlayerMovementController.EnableUndergroundMovement(true);
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        //PlayerSingleton.Instance.ForceStopPlayerMovement = true;
+        PlayerSingleton.Instance.GetPlayerMovementController.EnableUndergroundMovement(false);
     }
     #endregion
 }

@@ -29,6 +29,10 @@ public class PlayerTriggerEventsHandler : MonoBehaviour
         {
             PlayerSingleton.Instance.GetPlayerMovementController.SwitchCrawlDirection(SnakeCrawlDirection.Up);
         }
+        else if (other.gameObject.tag == "MoveForward")
+        {
+
+        }
         else if (other.gameObject.tag == "Obstacle")
         {
             PlayerSingleton.Instance.GetPlayerMovementController.KnockBackPlayer();

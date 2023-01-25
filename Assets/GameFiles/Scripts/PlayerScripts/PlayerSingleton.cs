@@ -53,8 +53,9 @@ public class PlayerSingleton : MonoBehaviour
     {
         splashVFXObj.SetActive(true);
         splashVFXObj.transform.parent = null;
+        playerBeadsManager.ReleaseAllBeads();
         playerParentObj.SetActive(false);
-        Invoke("Invoke_DefeatUI", 1f);
+        Invoke("Invoke_DefeatUI", 1f); 
     }
 
     public void DisableHead()

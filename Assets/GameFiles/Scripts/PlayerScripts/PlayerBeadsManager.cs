@@ -272,6 +272,28 @@ public class PlayerBeadsManager : MonoBehaviour
     {
         StartCoroutine(FinalPush());
     }
+
+    public void ReduceBeadsCount()
+    {
+        if (playerLevel > 1)
+        {
+            playerLevel--;
+        }
+        else
+        {
+            UIPackSingleton.Instance.SwitchUICanvas(UICanvas.GameOverCanvas, GameOverStatus.Victory);
+        }
+    }
+
+    public void ReleaseAllBeads()
+    {
+        foreach (Transform t in playerBeadsTransforms)
+        {
+            t.GetComponent<Collider>().isTrigger = false;
+            t.AddComponent<Rigidbody>();
+            t.parent = null;
+        }
+    }
     #endregion
 
     #region Coroutine

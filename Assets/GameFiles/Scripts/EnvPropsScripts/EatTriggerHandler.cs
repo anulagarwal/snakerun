@@ -19,6 +19,7 @@ public class EatTriggerHandler : MonoBehaviour
         if (other.gameObject.tag == "Bead")
         {
             other.gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = false;
+            PlayerSingleton.Instance.GetPlayerBeadsManager.ReduceBeadsCount();
             //plusPS.Play();
             Instantiate(plusObj, transform.position, Quaternion.identity);
             //Destroy(other.gameObject);

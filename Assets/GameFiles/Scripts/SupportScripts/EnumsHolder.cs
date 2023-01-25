@@ -8,7 +8,8 @@ public enum UICanvas
 public enum SnakeCrawlDirection
 {
     Up,
-    Forward
+    Forward,
+    Down
 };
 
 public enum MovementType
