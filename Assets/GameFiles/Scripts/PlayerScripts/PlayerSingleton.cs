@@ -7,6 +7,9 @@ public class PlayerSingleton : MonoBehaviour
     #region Properties
     public static PlayerSingleton Instance = null;
 
+    [Header("Attributes")]
+    [SerializeField] private float beadReleaseRate = 0f;
+
     [Header("Components Reference")]
     [SerializeField] private GameObject playerParentObj = null;
     [SerializeField] private GameObject splashVFXObj = null;
@@ -14,6 +17,9 @@ public class PlayerSingleton : MonoBehaviour
     [SerializeField] private PlayerBeadsManager playerBeadsManager = null;
     [SerializeField] private PlayerMoveTowardsTarget playerMoveTowardsTarget = null;
     [SerializeField] private MeshRenderer headMR = null;
+    [SerializeField] private GameObject playerLevelCanvasObj = null;
+
+    private int playerBeadIndex = 0;
     #endregion
 
     #region MonoBehaviour Functions
@@ -43,10 +49,14 @@ public class PlayerSingleton : MonoBehaviour
     #region Public Core Functions
     public void DisableNormalMovement()
     {
+        playerLevelCanvasObj.SetActive(false);
         CMVCManager.Instance.DisableFollow();
         playerMovementController.enabled = false;
         //playerMovementController.EnablePlayerMovement(false);
         playerMoveTowardsTarget.EnableMoveTowards(true);
+        playerBeadsManager.enabled = false;
+
+        InvokeRepeating("Invoke_MoveTowardsTarget", 0.2f, beadReleaseRate);
     }
 
     public void GameOver()
@@ -71,5 +81,15 @@ public class PlayerSingleton : MonoBehaviour
         UIPackSingleton.Instance.SwitchUICanvas(UICanvas.GameOverCanvas, GameOverStatus.Defeat);
     }
 
+    private void Invoke_MoveTowardsTarget()
+    {
+        playerBeadsManager.GetPlayerBeadsTransforms[playerBeadIndex].GetComponent<PlayerMoveTowardsTarget>().enabled = true;
+
+        playerBeadIndex++;
+        if (playerBeadIndex >= playerBeadsManager.GetPlayerBeadsTransforms.Count)
+        {
+            CancelInvoke("Invoke_MoveTowardsTarget");
+        }
+    }
     #endregion
 }

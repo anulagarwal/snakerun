@@ -5,6 +5,7 @@ using TMPro;
 using System.Drawing;
 using Unity.VisualScripting;
 using static UnityEngine.Rendering.DebugUI;
+using DG.Tweening;
 
 public class PlayerBeadsManager : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class PlayerBeadsManager : MonoBehaviour
     [SerializeField] private PlayerTriggerEventsHandler playerTriggerEventsHandler = null;
 
     [Header("Player Beads Attributes")]
+    [SerializeField] private float undergroundSpeed = 0f;
     [SerializeField] private float beadsFollowSpeed = 0f;
     [SerializeField] private List<Transform> beadTailTransforms = new List<Transform>();
     [SerializeField] private List<Transform> playerBeadsTransforms = new List<Transform>();
@@ -79,6 +81,8 @@ public class PlayerBeadsManager : MonoBehaviour
     public int GetPlayerLevel { get => playerLevel; }
 
     public BeadFollowType PlayerBeadFollowType { get; set; }
+
+    public List<Transform> GetPlayerBeadsTransforms { get => playerBeadsTransforms; }
     #endregion
 
     #region Private Core Functions
@@ -284,9 +288,10 @@ public class PlayerBeadsManager : MonoBehaviour
         {
             playerLevel--;
         }
-        else
+
+        if (playerLevel <= 1)
         {
-            UIPackSingleton.Instance.SwitchUICanvas(UICanvas.GameOverCanvas, GameOverStatus.Victory);
+            Invoke("Invoke_Victory", 2f);
         }
     }
 
@@ -309,12 +314,12 @@ public class PlayerBeadsManager : MonoBehaviour
 
         if (value)
         {
-            InvokeRepeating("Invoke_DisableBeadsMR", 0.02f, 0.02f);
+            InvokeRepeating("Invoke_DisableBeadsMR", 0.02f, undergroundSpeed);
             debrisPS.Play();
         }
         else
         {
-            InvokeRepeating("Invoke_EnableBeadsMR", 0.02f, 0.02f);
+            InvokeRepeating("Invoke_EnableBeadsMR", 0.02f, undergroundSpeed/2);
             debrisPS.Stop();
         }
         playerTriggerEventsHandler.IsTriggerEventsActive = !value;
@@ -344,7 +349,8 @@ public class PlayerBeadsManager : MonoBehaviour
             CancelInvoke("Invoke_DisableBeadsMR");
             return;
         }
-        playerBeadsTransforms[beadMRIndex].GetChild(0).GetComponent<MeshRenderer>().enabled = false;
+        playerBeadsTransforms[beadMRIndex].GetChild(0).DOScale(Vector3.zero, .5f);
+        //playerBeadsTransforms[beadMRIndex].GetChild(0).GetComponent<MeshRenderer>().enabled = false;
         beadMRIndex++;
     }
 
@@ -356,8 +362,15 @@ public class PlayerBeadsManager : MonoBehaviour
             CancelInvoke("Invoke_EnableBeadsMR");
             return;
         }
-        playerBeadsTransforms[beadMRIndex].GetChild(0).GetComponent<MeshRenderer>().enabled = true;
+        playerBeadsTransforms[beadMRIndex].GetChild(0).DOScale(Vector3.one, .5f);
+
+        //playerBeadsTransforms[beadMRIndex].GetChild(0).GetComponent<MeshRenderer>().enabled = true;
         beadMRIndex++;
+    }
+
+    private void Invoke_Victory()
+    {
+        UIPackSingleton.Instance.SwitchUICanvas(UICanvas.GameOverCanvas, GameOverStatus.Victory);
     }
     #endregion
 }
