@@ -22,6 +22,7 @@ public class EatTriggerHandler : MonoBehaviour
             PlayerSingleton.Instance.GetPlayerBeadsManager.ReduceBeadsCount();
             //plusPS.Play();
             Instantiate(plusObj, transform.position, Quaternion.identity);
+            charAnimator.Play("Eat");
             //Destroy(other.gameObject);
         }
     }

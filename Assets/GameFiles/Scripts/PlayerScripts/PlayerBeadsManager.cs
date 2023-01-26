@@ -338,7 +338,7 @@ public class PlayerBeadsManager : MonoBehaviour
     #region Invoke Functions
     private void Invoke_DisableBeadsMR()
     {
-        if (beadMRIndex > playerBeadsTransforms.Count)
+        if (beadMRIndex >= playerBeadsTransforms.Count)
         {
             beadMRIndex = 0;
             CancelInvoke("Invoke_DisableBeadsMR");
@@ -350,7 +350,7 @@ public class PlayerBeadsManager : MonoBehaviour
 
     private void Invoke_EnableBeadsMR()
     {
-        if (beadMRIndex > playerBeadsTransforms.Count)
+        if (beadMRIndex >= playerBeadsTransforms.Count)
         {
             beadMRIndex = 0;
             CancelInvoke("Invoke_EnableBeadsMR");
