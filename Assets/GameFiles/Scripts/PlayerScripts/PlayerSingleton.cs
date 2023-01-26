@@ -18,6 +18,7 @@ public class PlayerSingleton : MonoBehaviour
     [SerializeField] private PlayerMoveTowardsTarget playerMoveTowardsTarget = null;
     [SerializeField] private MeshRenderer headMR = null;
     [SerializeField] private GameObject playerLevelCanvasObj = null;
+    [SerializeField] private GameObject playerHiddenTriggerBoxObj = null;
 
     private int playerBeadIndex = 0;
     #endregion
@@ -71,6 +72,11 @@ public class PlayerSingleton : MonoBehaviour
     public void DisableHead()
     {
         headMR.gameObject.SetActive(false);
+    }
+
+    public void EnablePlayerHiddenTriggerBox(bool value)
+    {
+        playerHiddenTriggerBoxObj.SetActive(value);
     }
     #endregion
 
