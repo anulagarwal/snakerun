@@ -19,6 +19,7 @@ public class PlayerSingleton : MonoBehaviour
     [SerializeField] private MeshRenderer headMR = null;
     [SerializeField] private GameObject playerLevelCanvasObj = null;
     [SerializeField] private GameObject playerHiddenTriggerBoxObj = null;
+    [SerializeField] private GameObject holeObjPrefab = null;
 
     private int playerBeadIndex = 0;
     #endregion
@@ -76,6 +77,7 @@ public class PlayerSingleton : MonoBehaviour
 
     public void EnablePlayerHiddenTriggerBox(bool value)
     {
+        Destroy(Instantiate(holeObjPrefab, transform.position, Quaternion.identity), 5f);
         playerHiddenTriggerBoxObj.SetActive(value);
     }
     #endregion

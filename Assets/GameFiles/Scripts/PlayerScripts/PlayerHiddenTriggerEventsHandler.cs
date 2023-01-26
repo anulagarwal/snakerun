@@ -26,6 +26,14 @@ public class PlayerHiddenTriggerEventsHandler : MonoBehaviour
                 PlayerSingleton.Instance.GetPlayerBeadsManager.SwitchPlayerActiveMovementDirection(BeadFollowType.Head);
             }
         }
+        else if (other.gameObject.tag == "Finish")
+        {
+            PlatformFinishlineHandler.Instance.PlayConfettiVFX();
+            PlayerSingleton.Instance.DisableNormalMovement();
+
+            //Invoke("Invoke_ReleaseBeadsForFinalPush", 2f);
+            //UIPackSingleton.Instance.SwitchUICanvas(UICanvas.GameOverCanvas);
+        }
     }
 
     private void OnTriggerExit(Collider other)

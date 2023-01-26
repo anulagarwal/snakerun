@@ -192,6 +192,8 @@ MonoBehaviour:
   headMR: {fileID: 2643941308417505278}
   playerLevelCanvasObj: {fileID: 6712354429891183402}
   playerHiddenTriggerBoxObj: {fileID: 508561264584570900}
+  holeObjPrefab: {fileID: 677036462601678532, guid: c1bec5019e226a04fa5a2aa92b247f70,
+    type: 3}
 --- !u!114 &2643941308372705574
 MonoBehaviour:
   m_ObjectHideFlags: 0
