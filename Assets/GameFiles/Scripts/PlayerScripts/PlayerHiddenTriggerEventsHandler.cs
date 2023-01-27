@@ -36,6 +36,10 @@ public class PlayerHiddenTriggerEventsHandler : MonoBehaviour
             //Invoke("Invoke_ReleaseBeadsForFinalPush", 2f);
             //UIPackSingleton.Instance.SwitchUICanvas(UICanvas.GameOverCanvas);
         }
+        else if (other.gameObject.tag == "FallStair")
+        {
+            PlayerSingleton.Instance.GetPlayerBeadsManager.HideMeshRenderer(false);
+        }
     }
 
     private void OnTriggerExit(Collider other)

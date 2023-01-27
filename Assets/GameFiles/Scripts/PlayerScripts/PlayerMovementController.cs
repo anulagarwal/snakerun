@@ -59,13 +59,11 @@ public class PlayerMovementController : MonoBehaviour
             {
                 oldX = Input.mousePosition.x;
             }
-
             if (Input.GetMouseButton(0))
             {
                 x = (Input.mousePosition.x - oldX);
                 oldX = Input.mousePosition.x;
             }
-
             if (ActiveCrawlDirection == SnakeCrawlDirection.Forward)
             {
                 // movementDirection = new Vector3(movementJS.Horizontal * directionalSpeed, 0, 1).normalized;
@@ -78,7 +76,7 @@ public class PlayerMovementController : MonoBehaviour
             }
             //transform.Translate(new Vector3(x, 0, moveSpeed) * Time.deltaTime);
             activeCharacterController.Move(movementDirection * Time.deltaTime * moveSpeed);
-
+            //check if grounded
             if (isGravityActive)
             {
                 FakeGravity();
