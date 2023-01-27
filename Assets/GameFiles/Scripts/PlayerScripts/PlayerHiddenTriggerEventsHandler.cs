@@ -30,6 +30,8 @@ public class PlayerHiddenTriggerEventsHandler : MonoBehaviour
         {
             PlatformFinishlineHandler.Instance.PlayConfettiVFX();
             PlayerSingleton.Instance.DisableNormalMovement();
+            MovementJSTouchEventsHandler.Instance.enabled = false;
+            PlayerSingleton.Instance.GetPlayerBeadsManager.HideMeshRenderer(false);
 
             //Invoke("Invoke_ReleaseBeadsForFinalPush", 2f);
             //UIPackSingleton.Instance.SwitchUICanvas(UICanvas.GameOverCanvas);

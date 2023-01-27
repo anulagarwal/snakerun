@@ -176,14 +176,17 @@ public class PlayerBeadsManager : MonoBehaviour
         playerLevelIndicatorTMP.SetText(playerLevel.ToString());
     }
 
-    public void AddBeadToPlayerTailFromEnemies(Transform newBeadTransform)
+    public void AddBeadToPlayerTailFromEnemies(Transform newBeadTransform, EnemyHandler eh)
     {
         playerBeadsTransforms[playerBeadsTransforms.Count - 1].GetComponent<PlayerBeadFollower>().IsTail = false;
         playerLevel++;
         UpdatePlayerLevelIndicatorTMP();
         newBeadTransform.parent = playerParentTransform;
         newBeadTransform.position = new Vector3(lastPlayerBeadFollower.transform.position.x, 0, lastPlayerBeadFollower.transform.position.z + beadPositionOffset);
-
+        BeadColors bc = new BeadColors();
+        bc.litColor = eh.litColorEatable;
+        bc.shadedColor = eh.shadedColorEatable;
+        newBeadTransform.GetComponent<EnemyBeadColorUpdater>().UpdateColor(bc);
         if (newBeadTransform.TryGetComponent<PlayerBeadFollower>(out PlayerBeadFollower playerBeadFollower))
         {
             playerBeadFollower.IsTail = true;

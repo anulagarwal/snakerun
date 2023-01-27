@@ -42,7 +42,7 @@ public class EnemyManager : MonoBehaviour
     {
         foreach(EnemyHandler eh in enemyHandlers)
         {
-            if (eh != null)
+            if (eh != null && eh.GetComponent<EnemyMovementHandler>()!=null)
             {
                 eh.GetComponent<EnemyMovementHandler>().enabled = false;
             }

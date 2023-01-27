@@ -5,6 +5,21 @@ using UnityEngine.EventSystems;
 
 public class MovementJSTouchEventsHandler : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
 {
+
+    public static MovementJSTouchEventsHandler Instance = null;
+
+
+    private void Awake()
+    {
+        if (Instance != this && Instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+        Instance = this;
+    }
+
+
+
     #region Interface Functions
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -15,7 +30,7 @@ public class MovementJSTouchEventsHandler : MonoBehaviour, IPointerUpHandler, IP
     public void OnPointerUp(PointerEventData eventData)
     {
         PlayerSingleton.Instance.GetPlayerBeadsManager.HideMeshRenderer(false);
-        PlayerSingleton.Instance.EnablePlayerHiddenTriggerBox(false);
+        //PlayerSingleton.Instance.EnablePlayerHiddenTriggerBox(false);
     }
     #endregion
 }

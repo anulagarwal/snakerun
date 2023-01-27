@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//
+using DG.Tweening;
+
 public class PlayerSingleton : MonoBehaviour
 {
     #region Properties
@@ -77,7 +78,9 @@ public class PlayerSingleton : MonoBehaviour
 
     public void EnablePlayerHiddenTriggerBox(bool value)
     {
-        Destroy(Instantiate(holeObjPrefab, transform.position, Quaternion.identity), 5f);
+        GameObject g = Instantiate(holeObjPrefab, transform.position, Quaternion.identity);
+        g.transform.DOScale(Vector3.one, 1f);
+        Destroy(g, 3f);
         playerHiddenTriggerBoxObj.SetActive(value);
     }
     #endregion
