@@ -21,8 +21,6 @@ public class PlayerTriggerEventsHandler : MonoBehaviour
                 MovementJSTouchEventsHandler.Instance.enabled = false;
                 PlayerSingleton.Instance.GetPlayerBeadsManager.HideMeshRenderer(false);
                 PlayerSingleton.Instance.EnablePlayerHiddenTriggerBox(false);
-                //Invoke("Invoke_ReleaseBeadsForFinalPush", 2f);
-                //UIPackSingleton.Instance.SwitchUICanvas(UICanvas.GameOverCanvas);
             }
             else if (other.gameObject.tag == "Jumper")
             {
@@ -66,6 +64,8 @@ public class PlayerTriggerEventsHandler : MonoBehaviour
                     PlayerSingleton.Instance.GetPlayerMovementController.SwapActiveCharacterControllerToHead();
                     PlayerSingleton.Instance.GetPlayerBeadsManager.SwitchPlayerActiveMovementDirection(BeadFollowType.Head);
                 }
+
+                other.gameObject.SetActive(false);
             }
             else if (other.gameObject.tag == "EatTrigger")
             {

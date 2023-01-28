@@ -23,6 +23,7 @@ public class PlayerSingleton : MonoBehaviour
     [SerializeField] private GameObject holeObjPrefab = null;
 
     private int playerBeadIndex = 0;
+    private GameObject[] walls = null;
     #endregion
 
     #region MonoBehaviour Functions
@@ -38,6 +39,8 @@ public class PlayerSingleton : MonoBehaviour
     private void Start()
     {
         ForceStopPlayerMovement = false;
+
+        walls = GameObject.FindGameObjectsWithTag("Wall");
     }
     #endregion
 
@@ -82,6 +85,11 @@ public class PlayerSingleton : MonoBehaviour
         g.transform.DOScale(Vector3.one, 1f);
         Destroy(g, 3f);
         playerHiddenTriggerBoxObj.SetActive(value);
+
+        foreach(GameObject obj in walls)
+        {
+            obj.GetComponent<Collider>().isTrigger = value;
+        }
     }
     #endregion
 

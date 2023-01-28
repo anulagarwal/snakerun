@@ -30,7 +30,7 @@ public class MovementJSTouchEventsHandler : MonoBehaviour, IPointerUpHandler, IP
     public void OnPointerUp(PointerEventData eventData)
     {
         PlayerSingleton.Instance.GetPlayerBeadsManager.HideMeshRenderer(false);
-        //PlayerSingleton.Instance.EnablePlayerHiddenTriggerBox(false);
+        PlayerSingleton.Instance.EnablePlayerHiddenTriggerBox(false);
     }
     #endregion
 }

@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 3816661429575015625}
   - component: {fileID: 4876261546172738056}
   - component: {fileID: 1819085854145695482}
+  - component: {fileID: 1092352330361297865}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -214,6 +215,7 @@ MonoBehaviour:
   playerBeadsManager: {fileID: 3597483026720246858}
   mainParent: {fileID: 2643941309861928851}
   targetParent: {fileID: 2643941309861928851}
+  playerFollowLastBead: {fileID: 0}
   groundChecker: {fileID: 1064163967813069033}
   groundDistance: 0.5
   groundMask:
@@ -253,6 +255,7 @@ MonoBehaviour:
   mainParent: {fileID: 2643941309861928851}
   playerObj: {fileID: 2643941308417505273}
   playerTriggerEventsHandler: {fileID: 2643941308372705575}
+  playerFollowLastBead: {fileID: 0}
   undergroundSpeed: 0.1
   beadsFollowSpeed: 15
   beadTailTransforms:
@@ -312,6 +315,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
+--- !u!114 &1092352330361297865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2643941308372705570}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01de265507f0a684fb5a48383ee96431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  followSpeed: 0
 --- !u!1 &2643941308417505273
 GameObject:
   m_ObjectHideFlags: 0

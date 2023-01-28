@@ -10,7 +10,6 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private float directionalSpeed = 0f;
     [SerializeField] private float knockBackDelay = 0f;
     [SerializeField] private float knockbackSpeed = 0f;
-//    [SerializeField] private float knockbackSpeed = 0f;
 
 
     [Header("Components Reference")]
@@ -18,6 +17,7 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private PlayerBeadsManager playerBeadsManager = null;
     [SerializeField] private Transform mainParent = null;
     [SerializeField] private Transform targetParent = null;
+    [SerializeField] private PlayerFollowLastBead playerFollowLastBead = null;
 
     [Header("Fake Gravity Attributes")]
     [SerializeField] private Transform groundChecker = null;
@@ -66,16 +66,15 @@ public class PlayerMovementController : MonoBehaviour
             }
             if (ActiveCrawlDirection == SnakeCrawlDirection.Forward)
             {
-                // movementDirection = new Vector3(movementJS.Horizontal * directionalSpeed, 0, 1).normalized;
                 movementDirection = new Vector3(x * directionalSpeed, 0, 1).normalized;
             }
             else if (ActiveCrawlDirection == SnakeCrawlDirection.Up)
             {
-                //movementDirection = new Vector3(movementJS.Horizontal * directionalSpeed, 1, 0).normalized;
                 movementDirection = new Vector3(x * directionalSpeed, 1, 0).normalized;
             }
-            //transform.Translate(new Vector3(x, 0, moveSpeed) * Time.deltaTime);
+
             activeCharacterController.Move(movementDirection * Time.deltaTime * moveSpeed);
+
             //check if grounded
             if (isGravityActive)
             {
@@ -100,7 +99,7 @@ public class PlayerMovementController : MonoBehaviour
     #region Private Core Functions
     private void FakeGravity()
     {
-        isGrounded = Physics.CheckSphere(groundChecker.position, groundDistance, groundMask);
+        isGrounded = Physics.CheckSphere(activeCharacterController.transform.position, groundDistance, groundMask);
         if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
@@ -142,6 +141,7 @@ public class PlayerMovementController : MonoBehaviour
         IsHeadActive = false;
         activeCharacterController = tailCharacterController;
         headCharacterController.transform.parent = targetParent;
+
     }
 
     public void SwapActiveCharacterControllerToHead()

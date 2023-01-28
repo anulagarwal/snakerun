@@ -24,6 +24,7 @@ public class PlayerBeadsManager : MonoBehaviour
     [SerializeField] private Transform mainParent = null;
     [SerializeField] private GameObject playerObj = null;
     [SerializeField] private PlayerTriggerEventsHandler playerTriggerEventsHandler = null;
+    [SerializeField] private PlayerFollowLastBead playerFollowLastBead = null;
 
     [Header("Player Beads Attributes")]
     [SerializeField] private float undergroundSpeed = 0f;
@@ -103,6 +104,8 @@ public class PlayerBeadsManager : MonoBehaviour
             spawnPosition.z -= beadSpawnOffsetDistance;
         }
         lastPlayerBeadFollower = playerBeadsTransforms[playerBeadsTransforms.Count - 1].GetComponent<PlayerBeadFollower>();
+
+        //AddCharacterControllerToPlayerTail();
     }
 
     private void BeadsInitialColorSetup()
