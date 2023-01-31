@@ -3171,11 +3171,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SlinkyMovementTrigger (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 1152196053872468579, guid: b3e3a3c9d2c57b74398e3e4d54ecdb82,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: b3e3a3c9d2c57b74398e3e4d54ecdb82, type: 3}

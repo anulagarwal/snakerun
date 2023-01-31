@@ -106,6 +106,37 @@ Transform:
   m_Father: {fileID: 2643941308372705569}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2560011720565215934
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7719405878001599674}
+  m_Layer: 0
+  m_Name: SlinkyMovementPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7719405878001599674
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2560011720565215934}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2643941308372705569}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2643941308372705570
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,6 +155,8 @@ GameObject:
   - component: {fileID: 4876261546172738056}
   - component: {fileID: 1819085854145695482}
   - component: {fileID: 1092352330361297865}
+  - component: {fileID: 6040218827085714906}
+  - component: {fileID: 4918000998193582192}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -151,6 +184,7 @@ Transform:
   - {fileID: 7300839826645645480}
   - {fileID: 3332262292968535341}
   - {fileID: 9079180436462135281}
+  - {fileID: 7719405878001599674}
   m_Father: {fileID: 2643941309861928851}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -187,6 +221,7 @@ MonoBehaviour:
   beadReleaseRate: 0.2
   playerParentObj: {fileID: 2643941309861928844}
   splashVFXObj: {fileID: 3332262292968535344}
+  playerSlinkyMovementHandler: {fileID: 6040218827085714906}
   playerMovementController: {fileID: 2643941308372705574}
   playerBeadsManager: {fileID: 3597483026720246858}
   playerMoveTowardsTarget: {fileID: 1819085854145695482}
@@ -328,6 +363,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followSpeed: 0
+--- !u!114 &6040218827085714906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2643941308372705570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39f96cc8efaf51e4d8853b68283816ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 10
+  followSpeed: 15
+--- !u!114 &4918000998193582192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2643941308372705570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9e6ee5a569fb624b9b82117c2d9263d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementPoint: {fileID: 7719405878001599674}
 --- !u!1 &2643941308417505273
 GameObject:
   m_ObjectHideFlags: 0

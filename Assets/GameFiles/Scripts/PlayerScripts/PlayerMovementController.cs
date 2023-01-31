@@ -31,8 +31,6 @@ public class PlayerMovementController : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
     private VariableJoystick movementJS = null;
     private Vector3 movementDirection = Vector3.zero;
-    private CharacterController tailCharacterController = null;
-    private CharacterController activeCharacterController = null;
     private bool isPlayerKnocked = false;
     private float oldX;
 
@@ -44,8 +42,6 @@ public class PlayerMovementController : MonoBehaviour
         SwitchCrawlDirection(SnakeCrawlDirection.Forward);
         movementJS = UIPackSingleton.Instance.GetGameplayCanvasHandler.GetMovementJS;
         IsHeadActive = true;
-
-        SwapActiveCharacterControllerToHead();
         EnablePlayerMovement(false);
     }
 
@@ -73,7 +69,7 @@ public class PlayerMovementController : MonoBehaviour
                 movementDirection = new Vector3(x * directionalSpeed, 1, 0).normalized;
             }
 
-            activeCharacterController.Move(movementDirection * Time.deltaTime * moveSpeed);
+            headCharacterController.Move(movementDirection * Time.deltaTime * moveSpeed);
 
             //check if grounded
             if (isGravityActive)
@@ -91,21 +87,19 @@ public class PlayerMovementController : MonoBehaviour
     #region Getter And Setter
     public SnakeCrawlDirection ActiveCrawlDirection { get; set; }
 
-    public CharacterController SetTailCharacterController { set { tailCharacterController = value; } }
-
     public bool IsHeadActive { get; set; }
     #endregion
 
     #region Private Core Functions
     private void FakeGravity()
     {
-        isGrounded = Physics.CheckSphere(activeCharacterController.transform.position, groundDistance, groundMask);
+        isGrounded = Physics.CheckSphere(headCharacterController.transform.position, groundDistance, groundMask);
         if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
         }
         velocity.y += gravity * Time.deltaTime;
-        activeCharacterController.Move(velocity * Time.deltaTime);
+        headCharacterController.Move(velocity * Time.deltaTime);
     }
     #endregion
 
@@ -134,21 +128,6 @@ public class PlayerMovementController : MonoBehaviour
                 isGravityActive = true;
                 break;
         }
-    }
-
-    public void SwapActiveCharacterControllerToTail()
-    {
-        IsHeadActive = false;
-        activeCharacterController = tailCharacterController;
-        headCharacterController.transform.parent = targetParent;
-
-    }
-
-    public void SwapActiveCharacterControllerToHead()
-    {
-        IsHeadActive = true;
-        activeCharacterController = headCharacterController;
-        headCharacterController.transform.parent = mainParent;
     }
 
     public void KnockBackPlayer()

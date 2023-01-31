@@ -14,6 +14,7 @@ public class PlayerSingleton : MonoBehaviour
     [Header("Components Reference")]
     [SerializeField] private GameObject playerParentObj = null;
     [SerializeField] private GameObject splashVFXObj = null;
+    [SerializeField] private PlayerSlinkyMovementHandler playerSlinkyMovementHandler = null;
     [SerializeField] private PlayerMovementController playerMovementController = null;
     [SerializeField] private PlayerBeadsManager playerBeadsManager = null;
     [SerializeField] private PlayerMoveTowardsTarget playerMoveTowardsTarget = null;
@@ -50,6 +51,8 @@ public class PlayerSingleton : MonoBehaviour
     public PlayerBeadsManager GetPlayerBeadsManager { get => playerBeadsManager; }
 
     public bool ForceStopPlayerMovement { get; set; }
+
+    public PlayerSlinkyMovementHandler GetPlayerSlinkyMovementHandler { get => playerSlinkyMovementHandler; }
     #endregion
 
     #region Public Core Functions
@@ -89,6 +92,20 @@ public class PlayerSingleton : MonoBehaviour
         foreach(GameObject obj in walls)
         {
             obj.GetComponent<Collider>().isTrigger = value;
+        }
+    }
+
+    public void EnablePlayerMovement(bool value)
+    {
+        if (value)
+        {
+            playerMovementController.enabled = false;
+            playerBeadsManager.enabled = false;
+        }
+        else
+        {
+            playerMovementController.enabled = true;
+            playerBeadsManager.enabled = true;
         }
     }
     #endregion

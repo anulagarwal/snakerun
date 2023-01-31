@@ -65,8 +65,6 @@ public class PlayerBeadsManager : MonoBehaviour
         UpdatePlayerLevelIndicatorTMP();
         EnablePlayerBeadsMovementMechanism(false);
         BeadsInitialColorSetup();
-
-        SwitchPlayerActiveMovementDirection(BeadFollowType.Head);
     }
 
     private void LateUpdate()
@@ -104,8 +102,6 @@ public class PlayerBeadsManager : MonoBehaviour
             spawnPosition.z -= beadSpawnOffsetDistance;
         }
         lastPlayerBeadFollower = playerBeadsTransforms[playerBeadsTransforms.Count - 1].GetComponent<PlayerBeadFollower>();
-
-        //AddCharacterControllerToPlayerTail();
     }
 
     private void BeadsInitialColorSetup()
@@ -220,7 +216,6 @@ public class PlayerBeadsManager : MonoBehaviour
         }
 
         EnemyManager.Instance.Updatecolor();
-        AddCharacterControllerToPlayerTail();
     }
 
     public void UpdateAllBeadsColor()
@@ -256,31 +251,11 @@ public class PlayerBeadsManager : MonoBehaviour
         tailCharacterController.center = new Vector3(0f, 0.5f, 0f);
         tailCharacterController.radius = 0.5f;
         tailCharacterController.height = 1f;
-
-        PlayerSingleton.Instance.GetPlayerMovementController.SetTailCharacterController = tailCharacterController;
     }
 
     public void RemoveCharacterControllerFromPreviousActiveTail()
     {
         Destroy(lastPlayerBeadFollower.GetComponent<CharacterController>());
-    }
-
-    public void ConnectBeadHeadForSlinkyMovement()
-    {
-        for (int i = playerBeadsTransforms.Count - 2; i > -1; i--)
-        {
-            playerBeadsTransforms[i].GetComponent<PlayerBeadFollower>().SlinkyMovementTargetTransform = playerBeadsTransforms[i + 1].GetComponent<PlayerBeadFollower>().GetBeadHeadTransform;
-        }
-    }
-
-    public void SwitchPlayerActiveMovementDirection(BeadFollowType followType)
-    {
-        PlayerBeadFollowType = followType;
-
-        if (PlayerBeadFollowType == BeadFollowType.Tail)
-        {
-            ConnectBeadHeadForSlinkyMovement();
-        }
     }
 
     public void ReleaseBeadsForFinalPush()
@@ -356,7 +331,6 @@ public class PlayerBeadsManager : MonoBehaviour
             return;
         }
         playerBeadsTransforms[beadMRIndex].GetChild(0).DOScale(Vector3.zero, .5f);
-        //playerBeadsTransforms[beadMRIndex].GetChild(0).GetComponent<MeshRenderer>().enabled = false;
         beadMRIndex++;
     }
 
@@ -370,7 +344,6 @@ public class PlayerBeadsManager : MonoBehaviour
         }
         playerBeadsTransforms[beadMRIndex].GetChild(0).DOScale(Vector3.one, .5f);
 
-        //playerBeadsTransforms[beadMRIndex].GetChild(0).GetComponent<MeshRenderer>().enabled = true;
         beadMRIndex++;
     }
 

@@ -12,20 +12,6 @@ public class PlayerHiddenTriggerEventsHandler : MonoBehaviour
             PlayerSingleton.Instance.GetPlayerBeadsManager.HideMeshRenderer(false);
             PlayerSingleton.Instance.GetPlayerMovementController.SwitchCrawlDirection(SnakeCrawlDirection.Up);
         }
-        else if (other.gameObject.tag == "SlinkyMovementTrigger")
-        {
-            PlayerSingleton.Instance.GetPlayerBeadsManager.HideMeshRenderer(false);
-            if (PlayerSingleton.Instance.GetPlayerMovementController.IsHeadActive)
-            {
-                PlayerSingleton.Instance.GetPlayerMovementController.SwapActiveCharacterControllerToTail();
-                PlayerSingleton.Instance.GetPlayerBeadsManager.SwitchPlayerActiveMovementDirection(BeadFollowType.Tail);
-            }
-            else
-            {
-                PlayerSingleton.Instance.GetPlayerMovementController.SwapActiveCharacterControllerToHead();
-                PlayerSingleton.Instance.GetPlayerBeadsManager.SwitchPlayerActiveMovementDirection(BeadFollowType.Head);
-            }
-        }
         else if (other.gameObject.tag == "Finish")
         {
             PlatformFinishlineHandler.Instance.PlayConfettiVFX();

@@ -106,8 +106,6 @@ public class EnemyHandler : MonoBehaviour
             PlayerSingleton.Instance.GameOver();
             return;
         }
-
-        PlayerSingleton.Instance.GetPlayerBeadsManager.AddCharacterControllerToPlayerTail();
     }
 
     public void PlaySplashVFX()

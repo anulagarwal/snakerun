@@ -36,9 +36,11 @@ public class PlayerTriggerEventsHandler : MonoBehaviour
             {
                 PlayerSingleton.Instance.GetPlayerMovementController.SwitchCrawlDirection(SnakeCrawlDirection.Up);
             }
-            else if (other.gameObject.tag == "MoveForward")
+            else if (other.gameObject.tag == "SlinkyMovementTrigger")
             {
-
+                print("Working");
+                PlayerSingleton.Instance.EnablePlayerMovement(true);
+                PlayerSingleton.Instance.GetPlayerSlinkyMovementHandler.ActivateSlinkyMovement(PlayerSingleton.Instance.GetPlayerBeadsManager.GetPlayerBeadsTransforms,other.gameObject.GetComponent<SlinkyMovementTriggerHandler>().GetTranslatePoints);
             }
             else if (other.gameObject.tag == "Obstacle")
             {
@@ -51,21 +53,6 @@ public class PlayerTriggerEventsHandler : MonoBehaviour
 
                 other.gameObject.GetComponent<ColorBeadHandler>().AddColorBeadToPlayerTrail();
                 Destroy(other.gameObject);
-            }
-            else if (other.gameObject.tag == "SlinkyMovementTrigger")
-            {
-                if (PlayerSingleton.Instance.GetPlayerMovementController.IsHeadActive)
-                {
-                    PlayerSingleton.Instance.GetPlayerMovementController.SwapActiveCharacterControllerToTail();
-                    PlayerSingleton.Instance.GetPlayerBeadsManager.SwitchPlayerActiveMovementDirection(BeadFollowType.Tail);
-                }
-                else
-                {
-                    PlayerSingleton.Instance.GetPlayerMovementController.SwapActiveCharacterControllerToHead();
-                    PlayerSingleton.Instance.GetPlayerBeadsManager.SwitchPlayerActiveMovementDirection(BeadFollowType.Head);
-                }
-
-                other.gameObject.SetActive(false);
             }
             else if (other.gameObject.tag == "EatTrigger")
             {
