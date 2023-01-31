@@ -41,7 +41,6 @@ public class PlayerSlinkyMovementHandler : MonoBehaviour
     #region Private Core Functions
     private void SlinkyMovementCore()
     {
-        print(Vector3.Distance(headBead.position, targetMovementPoint.position));
         if (Vector3.Distance(headBead.position, targetMovementPoint.position) <= 0.1f)
         {
             targetMovementPoint = movementPoints[movementPointIndex];
@@ -50,7 +49,7 @@ public class PlayerSlinkyMovementHandler : MonoBehaviour
             if (movementPointIndex >= movementPoints.Count)
             {
                 IsSlinkyMovementActive = false;
-                print("Slinky Movement Done");
+                PlayerSingleton.Instance.EnablePlayerMovement(false);
                 return;
             }
         }
@@ -58,11 +57,32 @@ public class PlayerSlinkyMovementHandler : MonoBehaviour
         {
             headBead.position = Vector3.MoveTowards(headBead.position, targetMovementPoint.position, moveSpeed * Time.smoothDeltaTime);   
         
-            foreach (Transform t in beads)
+            for (int i = 1;i<beads.Count;i++)
             {
-                t.position = Vector3.Lerp(t.position, t.GetComponent<BeadSlinkyMovementHandler>().BeadTargetPoint.position, followSpeed * Time.smoothDeltaTime);
+                beads[i].position = Vector3.Lerp(beads[i].position, beads[i].GetComponent<BeadSlinkyMovementHandler>().BeadTargetPoint.position, followSpeed * Time.smoothDeltaTime);
             }
         }
+    }
+
+    public void ReverseSlinkyMovement(List<Transform> movementPoints)
+    {
+        this.movementPoints.Clear();
+        this.movementPoints = movementPoints;
+        beads.Reverse();
+
+        movementPointIndex = 0;
+        targetMovementPoint = this.movementPoints[movementPointIndex];
+
+        movementPointIndex++;
+
+        headBead = beads[0];
+        beads.Insert(0, headBead);
+        for (int i = 1; i < this.beads.Count; i++)
+        {
+            this.beads[i].GetComponent<BeadSlinkyMovementHandler>().BeadTargetPoint = this.beads[i - 1].GetComponent<BeadSlinkyMovementHandler>().GetMovementPoint;
+        }
+
+        IsSlinkyMovementActive = true;
     }
     #endregion
 
@@ -81,7 +101,7 @@ public class PlayerSlinkyMovementHandler : MonoBehaviour
 
         headBead = PlayerBeadMainTransform;
         beads.Insert(0, headBead);
-        for(int i = 1; i < this.beads.Count; i++)
+        for (int i = 1; i < this.beads.Count; i++)
         {
             this.beads[i].GetComponent<BeadSlinkyMovementHandler>().BeadTargetPoint = this.beads[i - 1].GetComponent<BeadSlinkyMovementHandler>().GetMovementPoint;
         }

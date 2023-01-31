@@ -38,9 +38,15 @@ public class PlayerTriggerEventsHandler : MonoBehaviour
             }
             else if (other.gameObject.tag == "SlinkyMovementTrigger")
             {
-                print("Working");
                 PlayerSingleton.Instance.EnablePlayerMovement(true);
-                PlayerSingleton.Instance.GetPlayerSlinkyMovementHandler.ActivateSlinkyMovement(PlayerSingleton.Instance.GetPlayerBeadsManager.GetPlayerBeadsTransforms,other.gameObject.GetComponent<SlinkyMovementTriggerHandler>().GetTranslatePoints);
+                PlayerSingleton.Instance.GetPlayerSlinkyMovementHandler.ActivateSlinkyMovement(PlayerSingleton.Instance.GetPlayerBeadsManager.GetPlayerBeadsTransforms, other.gameObject.GetComponent<SlinkyMovementTriggerHandler>().GetTranslatePoints);
+            }
+            else if (other.gameObject.tag == "ReverseSlinkyMovementTrigger")
+            {
+                if (PlayerSingleton.Instance.GetPlayerSlinkyMovementHandler.IsSlinkyMovementActive)
+                {
+                    PlayerSingleton.Instance.GetPlayerSlinkyMovementHandler.ReverseSlinkyMovement(other.gameObject.GetComponent<SlinkyMovementTriggerHandler>().GetTranslatePoints);
+                }
             }
             else if (other.gameObject.tag == "Obstacle")
             {
