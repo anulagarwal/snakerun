@@ -64,7 +64,6 @@ public class PlayerSingleton : MonoBehaviour
         //playerMovementController.EnablePlayerMovement(false);
         playerMoveTowardsTarget.EnableMoveTowards(true);
         playerBeadsManager.enabled = false;
-
         InvokeRepeating("Invoke_MoveTowardsTarget", 0.2f, beadReleaseRate);
     }
 

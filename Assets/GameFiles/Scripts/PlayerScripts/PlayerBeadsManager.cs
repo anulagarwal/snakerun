@@ -57,6 +57,7 @@ public class PlayerBeadsManager : MonoBehaviour
     #region MonoBehaviour Functions
     private void Awake()
     {
+        spawnPosition = transform.position;
         InitialSetup();
     }
 
@@ -123,7 +124,10 @@ public class PlayerBeadsManager : MonoBehaviour
         {
             if (PlayerBeadFollowType == BeadFollowType.Head)
             {
-                playerBeadsTransforms[i].position = Vector3.SlerpUnclamped(playerBeadsTransforms[i].position, playerBeadsTransforms[i].GetComponent<PlayerBeadFollower>().NormalMovementTargetTransform.position, beadsFollowSpeed * Time.deltaTime);
+                if (playerBeadsTransforms[i] != null)
+                {
+                    playerBeadsTransforms[i].position = Vector3.SlerpUnclamped(playerBeadsTransforms[i].position, playerBeadsTransforms[i].GetComponent<PlayerBeadFollower>().NormalMovementTargetTransform.position, beadsFollowSpeed * Time.deltaTime);
+                }
             }
             else if (PlayerBeadFollowType == BeadFollowType.Tail)
             {
@@ -294,14 +298,14 @@ public class PlayerBeadsManager : MonoBehaviour
         playerObj.SetActive(!value);
 
         if (value)
-        {
-            InvokeRepeating("Invoke_DisableBeadsMR", 0.02f, undergroundSpeed);
-            debrisPS.Play();
+        {           
+                InvokeRepeating("Invoke_DisableBeadsMR", 0.02f, undergroundSpeed);
+                debrisPS.Play();            
         }
         else
-        {
-            InvokeRepeating("Invoke_EnableBeadsMR", 0.02f, undergroundSpeed/2);
-            debrisPS.Stop();
+        {            
+                InvokeRepeating("Invoke_EnableBeadsMR", 0.02f, undergroundSpeed / 2);
+                debrisPS.Stop();            
         }
         playerTriggerEventsHandler.IsTriggerEventsActive = !value;
     }
