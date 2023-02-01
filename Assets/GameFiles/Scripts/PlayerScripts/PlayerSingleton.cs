@@ -83,18 +83,21 @@ public class PlayerSingleton : MonoBehaviour
 
     public void EnablePlayerHiddenTriggerBox(bool value)
     {
-        GameObject g = Instantiate(holeObjPrefab, transform.position, Quaternion.identity);
-        g.transform.DOScale(Vector3.one, 1f);
-        Destroy(g, 3f);
-        playerHiddenTriggerBoxObj.SetActive(value);
-
-        foreach(GameObject obj in walls)
+        if (!playerSlinkyMovementHandler.IsSlinkyMovementActive)
         {
-            obj.GetComponent<Collider>().isTrigger = value;
+            GameObject g = Instantiate(holeObjPrefab, transform.position, Quaternion.identity);
+            g.transform.DOScale(Vector3.one, 1f);
+            Destroy(g, 3f);
+            playerHiddenTriggerBoxObj.SetActive(value);
+
+            foreach (GameObject obj in walls)
+            {
+                obj.GetComponent<Collider>().isTrigger = value;
+            }
         }
     }
 
-    public void EnablePlayerMovement(bool value)
+    public void EnablePlayerSlinkyMovement(bool value)
     {
         if (value)
         {

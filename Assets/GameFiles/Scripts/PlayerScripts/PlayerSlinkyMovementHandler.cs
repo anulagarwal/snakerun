@@ -49,7 +49,7 @@ public class PlayerSlinkyMovementHandler : MonoBehaviour
             if (movementPointIndex >= movementPoints.Count)
             {
                 IsSlinkyMovementActive = false;
-                PlayerSingleton.Instance.EnablePlayerMovement(false);
+                PlayerSingleton.Instance.EnablePlayerSlinkyMovement(false);
                 return;
             }
         }

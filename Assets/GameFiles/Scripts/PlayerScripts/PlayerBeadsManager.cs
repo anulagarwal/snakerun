@@ -122,21 +122,15 @@ public class PlayerBeadsManager : MonoBehaviour
     {
         for (int i = 0; i < playerBeadsTransforms.Count; i++)
         {
-            if (PlayerBeadFollowType == BeadFollowType.Head)
+            if (PlayerBeadFollowType == BeadFollowType.Head && playerBeadsTransforms[i].gameObject.tag != "Player")
             {
-                if (playerBeadsTransforms[i] != null)
-                {
-                    playerBeadsTransforms[i].position = Vector3.SlerpUnclamped(playerBeadsTransforms[i].position, playerBeadsTransforms[i].GetComponent<PlayerBeadFollower>().NormalMovementTargetTransform.position, beadsFollowSpeed * Time.deltaTime);
-                }
+                playerBeadsTransforms[i].position = Vector3.SlerpUnclamped(playerBeadsTransforms[i].position, playerBeadsTransforms[i].GetComponent<PlayerBeadFollower>().NormalMovementTargetTransform.position, beadsFollowSpeed * Time.deltaTime);
             }
-            else if (PlayerBeadFollowType == BeadFollowType.Tail)
+            else if (PlayerBeadFollowType == BeadFollowType.Tail && playerBeadsTransforms[i].gameObject.tag != "Player")
             {
                 if (playerBeadsTransforms[i].TryGetComponent<PlayerBeadFollower>(out PlayerBeadFollower playerBeadFollower))
                 {
-                    if (!playerBeadFollower.IsTail)
-                    {
-                        playerBeadsTransforms[i].position = Vector3.SlerpUnclamped(playerBeadsTransforms[i].position, playerBeadFollower.SlinkyMovementTargetTransform.position, beadsFollowSpeed * Time.smoothDeltaTime);
-                    }
+                    playerBeadsTransforms[i].position = Vector3.SlerpUnclamped(playerBeadsTransforms[i].position, playerBeadFollower.SlinkyMovementTargetTransform.position, beadsFollowSpeed * Time.smoothDeltaTime);
                 }
             }
         }

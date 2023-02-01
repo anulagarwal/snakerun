@@ -38,7 +38,7 @@ public class PlayerTriggerEventsHandler : MonoBehaviour
             }
             else if (other.gameObject.tag == "SlinkyMovementTrigger")
             {
-                PlayerSingleton.Instance.EnablePlayerMovement(true);
+                PlayerSingleton.Instance.EnablePlayerSlinkyMovement(true);
                 PlayerSingleton.Instance.GetPlayerSlinkyMovementHandler.ActivateSlinkyMovement(PlayerSingleton.Instance.GetPlayerBeadsManager.GetPlayerBeadsTransforms, other.gameObject.GetComponent<SlinkyMovementTriggerHandler>().GetTranslatePoints);
             }
             else if (other.gameObject.tag == "ReverseSlinkyMovementTrigger")

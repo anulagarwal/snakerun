@@ -23,14 +23,20 @@ public class MovementJSTouchEventsHandler : MonoBehaviour, IPointerUpHandler, IP
     #region Interface Functions
     public void OnPointerDown(PointerEventData eventData)
     {
-        PlayerSingleton.Instance.GetPlayerBeadsManager.HideMeshRenderer(true);
-        PlayerSingleton.Instance.EnablePlayerHiddenTriggerBox(true);
+        if (!PlayerSingleton.Instance.GetPlayerSlinkyMovementHandler.IsSlinkyMovementActive)
+        {
+            PlayerSingleton.Instance.GetPlayerBeadsManager.HideMeshRenderer(true);
+            PlayerSingleton.Instance.EnablePlayerHiddenTriggerBox(true);
+        }
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        PlayerSingleton.Instance.GetPlayerBeadsManager.HideMeshRenderer(false);
-        PlayerSingleton.Instance.EnablePlayerHiddenTriggerBox(false);
+        if (!PlayerSingleton.Instance.GetPlayerSlinkyMovementHandler.IsSlinkyMovementActive)
+        {
+            PlayerSingleton.Instance.GetPlayerBeadsManager.HideMeshRenderer(false);
+            PlayerSingleton.Instance.EnablePlayerHiddenTriggerBox(false);
+        }
     }
     #endregion
 }
