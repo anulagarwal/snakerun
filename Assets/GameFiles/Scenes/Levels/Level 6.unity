@@ -1907,7 +1907,7 @@ PrefabInstance:
     - target: {fileID: 133476356731749288, guid: be4aa81abbe634bf6992666d735463dc,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 195.82
+      value: 190.76
       objectReference: {fileID: 0}
     - target: {fileID: 133476356731749288, guid: be4aa81abbe634bf6992666d735463dc,
         type: 3}
@@ -1952,7 +1952,7 @@ PrefabInstance:
     - target: {fileID: 133476356731749289, guid: be4aa81abbe634bf6992666d735463dc,
         type: 3}
       propertyPath: beadSpawnAmount
-      value: 150
+      value: 125
       objectReference: {fileID: 0}
     - target: {fileID: 133476356731749291, guid: be4aa81abbe634bf6992666d735463dc,
         type: 3}
@@ -5026,7 +5026,7 @@ PrefabInstance:
     - target: {fileID: 133476356731749288, guid: be4aa81abbe634bf6992666d735463dc,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 195.82
+      value: 192.31
       objectReference: {fileID: 0}
     - target: {fileID: 133476356731749288, guid: be4aa81abbe634bf6992666d735463dc,
         type: 3}
@@ -5252,6 +5252,11 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2643941308372705573, guid: 81a4b50767b3c4f459bddba607293020,
+        type: 3}
+      propertyPath: beadReleaseRate
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 2643941309861928844, guid: 81a4b50767b3c4f459bddba607293020,
         type: 3}
       propertyPath: m_Name

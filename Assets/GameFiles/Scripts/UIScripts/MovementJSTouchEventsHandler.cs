@@ -25,8 +25,8 @@ public class MovementJSTouchEventsHandler : MonoBehaviour, IPointerUpHandler, IP
     {
         if (!PlayerSingleton.Instance.GetPlayerSlinkyMovementHandler.IsSlinkyMovementActive)
         {
-            PlayerSingleton.Instance.GetPlayerBeadsManager.HideMeshRenderer(true);
-            PlayerSingleton.Instance.EnablePlayerHiddenTriggerBox(true);
+          //  PlayerSingleton.Instance.GetPlayerBeadsManager.HideMeshRenderer(true);
+          //  PlayerSingleton.Instance.EnablePlayerHiddenTriggerBox(true);
         }
     }
 
@@ -34,8 +34,8 @@ public class MovementJSTouchEventsHandler : MonoBehaviour, IPointerUpHandler, IP
     {
         if (!PlayerSingleton.Instance.GetPlayerSlinkyMovementHandler.IsSlinkyMovementActive)
         {
-            PlayerSingleton.Instance.GetPlayerBeadsManager.HideMeshRenderer(false);
-            PlayerSingleton.Instance.EnablePlayerHiddenTriggerBox(false);
+          //  PlayerSingleton.Instance.GetPlayerBeadsManager.HideMeshRenderer(false);
+         //   PlayerSingleton.Instance.EnablePlayerHiddenTriggerBox(false);
         }
     }
     #endregion

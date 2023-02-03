@@ -26,7 +26,7 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private float jumpHeight = 3f;
 
     private bool isGravityActive = false;
-    private bool isGrounded = false;
+    internal bool isGrounded = false;
     private float gravity = -9.81f;
     private Vector3 velocity = Vector3.zero;
     private VariableJoystick movementJS = null;

@@ -26,6 +26,8 @@ public class EnemyHandler : MonoBehaviour
     [SerializeField] public Color32 shadedColorEatable;
     [SerializeField] private Color32 litColorDanger;
     [SerializeField] private Color32 shadedColorDanger;
+    [SerializeField] private Color32 greenText;
+
 
     private BeadColors beadColors = new BeadColors();
     private Vector3 spawnPosition = Vector3.zero;
@@ -44,7 +46,7 @@ public class EnemyHandler : MonoBehaviour
         else
         {
             enemyLevel = beadSpawnAmount;
-            enemyLevelTMP.SetText("LVL "+ enemyLevel.ToString());
+            enemyLevelTMP.SetText(""+ enemyLevel.ToString());
             ChangeEnemyBeadColors();
         }
     }
@@ -123,7 +125,7 @@ public class EnemyHandler : MonoBehaviour
             beadColors.shadedColor = shadedColorEatable;
             splashVFXObj.GetComponent<ParticleSystemRenderer>().material.color = beadColors.litColor;
             splashVFXObj.transform.GetChild(0).GetComponent<ParticleSystemRenderer>().material.color = beadColors.litColor;
-            enemyLevelBGMesh.material.color = litColorEatable;
+            enemyLevelBGMesh.material.color = Color.green;
 
         }
         else

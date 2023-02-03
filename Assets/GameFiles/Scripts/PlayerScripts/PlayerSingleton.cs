@@ -83,7 +83,7 @@ public class PlayerSingleton : MonoBehaviour
 
     public void EnablePlayerHiddenTriggerBox(bool value)
     {
-        if (!playerSlinkyMovementHandler.IsSlinkyMovementActive)
+        if (!playerSlinkyMovementHandler.IsSlinkyMovementActive && playerMovementController.isGrounded && playerMovementController.ActiveCrawlDirection != SnakeCrawlDirection.Up)
         {
             GameObject g = Instantiate(holeObjPrefab, transform.position, Quaternion.identity);
             g.transform.DOScale(Vector3.one, 1f);
