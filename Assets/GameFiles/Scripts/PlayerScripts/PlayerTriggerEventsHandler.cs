@@ -64,6 +64,10 @@ public class PlayerTriggerEventsHandler : MonoBehaviour
             {
                 PlayerSingleton.Instance.DisableHead();
             }
+            else if (other.gameObject.tag == "ReleasePoint")
+            {
+                PlayerSingleton.Instance.PlayerMoveTowardsHead();
+            }
         }
     }
 

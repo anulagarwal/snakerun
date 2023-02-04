@@ -208,9 +208,22 @@ public class PlayerBeadsManager : MonoBehaviour
 
         while (count > 0)
         {
-            AddBeadToPlayerTail(Instantiate(playerBeadPrefab, new Vector3(lastPlayerBeadFollower.transform.position.x, 0, lastPlayerBeadFollower.transform.position.z + beadPositionOffset), Quaternion.identity).transform);
-            count--;
-            playerBeadColorData.Insert(0, newBeadColors);
+            //Call from pool
+
+            GameObject tempBeadRef = BeadsPoolManager.Instance.SpawnBead();
+
+            if (tempBeadRef != null)
+            {
+                tempBeadRef.SetActive(true);
+                AddBeadToPlayerTail(tempBeadRef.transform);
+                //AddBeadToPlayerTail(Instantiate(playerBeadPrefab, new Vector3(lastPlayerBeadFollower.transform.position.x, 0, lastPlayerBeadFollower.transform.position.z + beadPositionOffset), Quaternion.identity).transform);
+                count--;
+                playerBeadColorData.Insert(0, newBeadColors);
+            }
+            else
+            {
+                break;
+            }
         }
 
         EnemyManager.Instance.Updatecolor();

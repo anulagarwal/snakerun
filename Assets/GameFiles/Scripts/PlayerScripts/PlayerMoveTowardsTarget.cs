@@ -14,7 +14,7 @@ public class PlayerMoveTowardsTarget : MonoBehaviour
     #region MonoBehaviour Functions
     private void Start()
     {
-        targetLocation = GameObject.FindGameObjectWithTag("Head").transform.position;
+        targetLocation = GameObject.FindGameObjectWithTag("ReleasePoint").transform.position;
     }
 
     private void Update()
@@ -27,6 +27,11 @@ public class PlayerMoveTowardsTarget : MonoBehaviour
     public void EnableMoveTowards(bool value)
     {
         this.enabled = value;
+    }
+
+    public void SwitchTargetLocationToHead()
+    {
+        targetLocation = GameObject.FindGameObjectWithTag("Head").transform.position;
     }
     #endregion
 }

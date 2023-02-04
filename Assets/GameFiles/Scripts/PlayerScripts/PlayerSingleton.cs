@@ -62,9 +62,19 @@ public class PlayerSingleton : MonoBehaviour
         CMVCManager.Instance.DisableFollow();
         playerMovementController.enabled = false;
         //playerMovementController.EnablePlayerMovement(false);
+
         playerMoveTowardsTarget.EnableMoveTowards(true);
-        playerBeadsManager.enabled = false;
-        InvokeRepeating("Invoke_MoveTowardsTarget", 0.2f, beadReleaseRate);
+
+        //Testing
+        
+
+        //playerBeadsManager.enabled = false;
+        //InvokeRepeating("Invoke_MoveTowardsTarget", 0.2f, beadReleaseRate);
+    }
+
+    public void PlayerMoveTowardsHead()
+    {
+        playerMoveTowardsTarget.SwitchTargetLocationToHead();
     }
 
     public void GameOver()
