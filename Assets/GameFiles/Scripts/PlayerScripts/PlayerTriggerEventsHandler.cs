@@ -67,6 +67,7 @@ public class PlayerTriggerEventsHandler : MonoBehaviour
             else if (other.gameObject.tag == "ReleasePoint")
             {
                 PlayerSingleton.Instance.PlayerMoveTowardsHead();
+                PlayerSingleton.Instance.ActivateFinalBeadsPush();
             }
         }
     }

@@ -120,6 +120,12 @@ public class PlayerSingleton : MonoBehaviour
             playerBeadsManager.enabled = true;
         }
     }
+
+    public void ActivateFinalBeadsPush()
+    {
+        playerBeadsManager.enabled = false;
+        InvokeRepeating("Invoke_MoveTowardsTarget", 0.2f, beadReleaseRate);
+    }
     #endregion
 
     #region Invoke functions
@@ -131,7 +137,7 @@ public class PlayerSingleton : MonoBehaviour
 
     private void Invoke_MoveTowardsTarget()
     {
-        playerBeadsManager.GetPlayerBeadsTransforms[playerBeadIndex].GetComponent<PlayerMoveTowardsTarget>().enabled = true;
+        playerBeadsManager.GetPlayerBeadsTransforms[playerBeadIndex].GetComponent<BeadMoveTowardsHead>().enabled = true;
 
         playerBeadIndex++;
         if (playerBeadIndex >= playerBeadsManager.GetPlayerBeadsTransforms.Count)

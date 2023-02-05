@@ -211,6 +211,7 @@ public class PlayerBeadsManager : MonoBehaviour
             //Call from pool
 
             GameObject tempBeadRef = BeadsPoolManager.Instance.SpawnBead();
+            playerBeadsTransforms.Add(tempBeadRef.transform);
 
             if (tempBeadRef != null)
             {
@@ -241,7 +242,16 @@ public class PlayerBeadsManager : MonoBehaviour
 
     public void TweenAllBeads()
     {
+        ResetTransformScaleOfAllBead();
         playerBeadsTweener.TweenBeads(playerBeadsTransforms);
+    }
+
+    public void ResetTransformScaleOfAllBead()
+    {
+        foreach(Transform t in playerBeadsTransforms)
+        {
+            t.localScale = Vector3.one;
+        }
     }
 
     //Remove Beads From Player Tail
