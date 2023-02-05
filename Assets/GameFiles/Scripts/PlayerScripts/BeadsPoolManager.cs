@@ -27,7 +27,7 @@ public class BeadsPoolManager : MonoBehaviour
     #region Public Core Functions
     public GameObject SpawnBead()
     {
-        if (activeBeadIndex < beads.Count)
+        if (activeBeadIndex < beads.Count - 1)
         {
             activeBeadIndex++;
             return beads[activeBeadIndex];

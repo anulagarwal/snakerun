@@ -91,10 +91,12 @@ public class EnemyHandler : MonoBehaviour
             }
             else
             {
-                for(int i = 0; i< enemyLevel; i++)
-                {
-                    PlayerSingleton.Instance.GetPlayerBeadsManager.AddBeadToPlayerTailFromEnemies(Instantiate(beadPrefab, spawnPosition, Quaternion.identity, this.transform).gameObject.transform,this);
-                }
+                PlayerSingleton.Instance.GetPlayerBeadsManager.SpawnAndUpdateColorOfFrontBeads(enemyLevel, beadColors.litColor, beadColors.shadedColor);
+
+                //for (int i = 0; i< enemyLevel; i++)
+                //{
+                //    PlayerSingleton.Instance.GetPlayerBeadsManager.AddBeadToPlayerTailFromEnemies(Instantiate(beadPrefab, spawnPosition, Quaternion.identity, this.transform).gameObject.transform,this);
+                //}
             }
             beads.Clear();
             PlayerSingleton.Instance.GetPlayerBeadsManager.UpdateAllBeadsColor();
