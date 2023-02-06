@@ -27,11 +27,12 @@ public class PlayerBeadsTweener : MonoBehaviour
         t.DOPunchScale(targetScale, tweenTime, 1, .2f);
     }
     #endregion
-
+    //
     #region Public core functions
     public void TweenBeads(List<Transform> transforms)
     {
         CancelInvoke();
+        ResetScale();
         tweenableObjects = transforms;
         tweenObjActiveIndex = 0;
 
