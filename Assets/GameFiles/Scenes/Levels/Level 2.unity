@@ -3864,16 +3864,6 @@ PrefabInstance:
       propertyPath: startLength
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 3816661429575015625, guid: 81a4b50767b3c4f459bddba607293020,
-        type: 3}
-      propertyPath: tweenTime
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3816661429575015625, guid: 81a4b50767b3c4f459bddba607293020,
-        type: 3}
-      propertyPath: tweenDelay
-      value: 0.05
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 81a4b50767b3c4f459bddba607293020, type: 3}
