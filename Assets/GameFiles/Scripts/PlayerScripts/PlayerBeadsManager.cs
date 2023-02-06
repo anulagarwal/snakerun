@@ -242,16 +242,9 @@ public class PlayerBeadsManager : MonoBehaviour
 
     public void TweenAllBeads()
     {
-        ResetTransformScaleOfAllBead();
-        playerBeadsTweener.TweenBeads(playerBeadsTransforms);
-    }
-
-    public void ResetTransformScaleOfAllBead()
-    {
-        foreach(Transform t in playerBeadsTransforms)
-        {
-            t.localScale = Vector3.one;
-        }
+        playerBeadsTweener.ActivateBeadsTweening(true);
+        //ResetTransformScaleOfAllBead();
+        //playerBeadsTweener.TweenBeads(playerBeadsTransforms);
     }
 
     //Remove Beads From Player Tail

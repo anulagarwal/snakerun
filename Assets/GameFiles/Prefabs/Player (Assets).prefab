@@ -320,8 +320,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7655381f52d95f3409354d27eb2e9093, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tweenDelay: 0.05
-  tweenTime: 0.2
+  tweenDelay: 0.01
+  tweenTime: 0.1
   scaleUpMultiplier: 1.25
 --- !u!114 &4876261546172738056
 MonoBehaviour:

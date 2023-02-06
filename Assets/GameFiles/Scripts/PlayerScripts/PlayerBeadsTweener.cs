@@ -15,51 +15,74 @@ public class PlayerBeadsTweener : MonoBehaviour
     private int tweenObjActiveIndex = 0;
     private Vector3 defaultScale = Vector3.one;
     private Vector3 targetScale = Vector3.one;
+    private float nextTimeToTween = 0;
+    private int activeBeadIndex = 0;
+    private PlayerBeadsManager playerBeadsManager = null;
+    #endregion
+
+    #region Delegates
+    private delegate void TweenBeadsWave();
+
+    private TweenBeadsWave tweenBeadsWave = null;
     #endregion
 
     #region MonoBehaviour Functions
+    private void Start()
+    {
+        nextTimeToTween = Time.time;
+        playerBeadsManager = PlayerSingleton.Instance.GetPlayerBeadsManager;
+        ActivateBeadsTweening(false);
+    }
+
+    private void Update()
+    {
+        if (tweenBeadsWave != null)
+        {
+            tweenBeadsWave();
+        }
+    }
     #endregion
 
     #region Private Core Functions
-    private void Tween(Transform t)
+    private void TweenAllBeads()
     {
-        targetScale = Vector3.one * scaleUpMultiplier;
-        t.DOPunchScale(targetScale, tweenTime, 1, .2f);
-    }
-    #endregion
-    //
-    #region Public core functions
-    public void TweenBeads(List<Transform> transforms)
-    {
-        CancelInvoke();
-        ResetScale();
-        tweenableObjects = transforms;
-        tweenObjActiveIndex = 0;
-
-        InvokeRepeating("TweenOnDelay", 0.01f, tweenDelay);
-    }
-    #endregion
-
-    #region Invoke Functions
-    private void TweenOnDelay()
-    {
-        Tween(tweenableObjects[tweenObjActiveIndex]);
-
-        tweenObjActiveIndex++;
-
-        if (tweenObjActiveIndex >= tweenableObjects.Count)
+        if (nextTimeToTween <= Time.time)
         {
-            tweenObjActiveIndex = 0;
-            ResetScale();
-            CancelInvoke();
+            targetScale = Vector3.one * scaleUpMultiplier;
+            playerBeadsManager.GetPlayerBeadsTransforms[activeBeadIndex].DOPunchScale(targetScale, tweenTime, 1, .2f);
+            activeBeadIndex++;
+            if (activeBeadIndex >= playerBeadsManager.GetPlayerBeadsTransforms.Count)
+            {
+                ActivateBeadsTweening(false);
+            }
+            nextTimeToTween = Time.time + tweenDelay;
         }
     }
 
     private void ResetScale()
     {
-        foreach(Transform t in tweenableObjects)
+        foreach (Transform t in playerBeadsManager.GetPlayerBeadsTransforms)
         {
             t.localScale = Vector3.one;
+        }
+    }
+    #endregion
+
+    #region Public core functions
+    public void ActivateBeadsTweening(bool value)
+    {
+        if (value)
+        {
+            tweenBeadsWave = null;
+            activeBeadIndex = 0;
+            ResetScale();
+            tweenBeadsWave += TweenAllBeads;
+        }
+        else
+        {
+            tweenBeadsWave = null;
+            activeBeadIndex = 0;
+            ResetScale();
         }
     }
     #endregion
