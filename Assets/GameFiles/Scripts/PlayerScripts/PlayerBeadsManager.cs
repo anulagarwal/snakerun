@@ -46,6 +46,7 @@ public class PlayerBeadsManager : MonoBehaviour
     private Vector3 spawnPosition = Vector3.zero;
     private PlayerBeadFollower lastPlayerBeadFollower = null;
     private int beadMRIndex = 0;
+    private int beadsFromPool = 0;
     #endregion
 
     #region Delegates
@@ -103,6 +104,8 @@ public class PlayerBeadsManager : MonoBehaviour
             spawnPosition.z -= beadSpawnOffsetDistance;
         }
         lastPlayerBeadFollower = playerBeadsTransforms[playerBeadsTransforms.Count - 1].GetComponent<PlayerBeadFollower>();
+
+        beadsFromPool += spawnAmount;
     }
 
     private void BeadsInitialColorSetup()
@@ -215,6 +218,7 @@ public class PlayerBeadsManager : MonoBehaviour
 
             if (tempBeadRef != null)
             {
+                beadsFromPool++;
                 tempBeadRef.SetActive(true);
                 AddBeadToPlayerTail(tempBeadRef.transform);
                 //AddBeadToPlayerTail(Instantiate(playerBeadPrefab, new Vector3(lastPlayerBeadFollower.transform.position.x, 0, lastPlayerBeadFollower.transform.position.z + beadPositionOffset), Quaternion.identity).transform);
@@ -282,9 +286,10 @@ public class PlayerBeadsManager : MonoBehaviour
         if (playerLevel > 1)
         {
             playerLevel--;
+            beadsFromPool--;
         }
 
-        if (playerLevel <= 1)
+        if (playerLevel <= 1 || beadsFromPool <= 0)
         {
             Invoke("Invoke_Victory", 2f);
         }
